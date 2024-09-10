@@ -1,5 +1,5 @@
 Some text to the file.
 
-And even less text.
+Nothing.
 
 A lot more text!
