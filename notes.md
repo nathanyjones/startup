@@ -1,4 +1,5 @@
 # CS 260 Notes
+README File: https://github.com/nathanyjones/startup/blob/b0f6172ec1e47766a126cde6ca2f11438c4be939/README.md
 ### Creating Repositories
 #### To create a GitHub repository:
 1. Login to GitHub
@@ -33,3 +34,4 @@ Address even after terminating the instance.
 * t3.nano is the minimum instance size to meet requirements for 
 website. Will probably need more.
 * Command for shelling into server: *ssh -i [key pair file] ubuntu@[ip address]*
+
