@@ -25,9 +25,9 @@ README File: https://github.com/nathanyjones/startup/blob/b0f6172ec1e47766a126cd
 4. Commit the resolution and push up the result.
 
 ### Website Information
-* **Website IP Address:** 54.172.78.100
-* **Link to Website:** http://54.172.78.100/
-#### Notes from Creating Webserver
+* **Website IP Address:** 52.207.105.29
+* **Link to Website:** http://52.207.105.29/
+### Notes from Creating Webserver
 * Must release Elastic IP Address to stop being charged for it.
 * Elastic IP Address allows you to maintain the same Public IP 
 Address even after terminating the instance.
