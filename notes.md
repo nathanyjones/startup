@@ -24,7 +24,7 @@ README File: https://github.com/nathanyjones/startup/blob/b0f6172ec1e47766a126cd
 3. Modify the file to keep the changes we want from both commits.
 4. Commit the resolution and push up the result.
 
-## Website Information
+### Website Information
 * **Website IP Address:** 54.172.78.100
 * **Link to Website:** http://54.172.78.100/
 #### Notes from Creating Webserver
