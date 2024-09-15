@@ -16,7 +16,8 @@ only ever dreamed of.
 
 ### Design
 
-
+![Home Page](main_page.png)
+![Movies Example Page](movie_page.png)
 
 ### Key Features
 
