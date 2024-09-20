@@ -25,8 +25,8 @@ README File: https://github.com/nathanyjones/startup/blob/b0f6172ec1e47766a126cd
 4. Commit the resolution and push up the result.
 
 ### Website Information
-* **Website IP Address:** 52.207.105.29
-* **Link to Website:** http://52.207.105.29/
+* **Link to Website:** https://ideashare.click
+
 ### Notes from Creating Webserver
 * Must release Elastic IP Address to stop being charged for it.
 * Elastic IP Address allows you to maintain the same Public IP 
@@ -35,3 +35,18 @@ Address even after terminating the instance.
 website. Will probably need more.
 * Command for shelling into server: *ssh -i [key pair file] ubuntu@[ip address]*
 
+### HTTPS, TLS, and web certificates
+* HTTPS is a secure version of HTTP, where the data is encrypted using the TLS protocol.
+* Web certificates allow for the use of HTTPS.
+* You can use AWS Route 53 to lease domain names and manage DNS records.
+
+### Useful HTML Information
+* To embed a link: \<a href="link_to_website">Embedded Text\</a>
+* To display an image: \<img alt="placeholder text" src="image_link" width=100>
+* Input elements have the following attributes: 
+  * name - The name of the input.
+  * disabled - Disables the ability for the user to interact with the input.
+  * value - The initial value of the input.
+  * required - Signified that a value is required to be valid.
+* HTML Media Elements: img, audio, video, svg, and canvas.
+* To display a video: \<video controls width="300" crossorigin="anonymous" src="video_link"> \</video>
