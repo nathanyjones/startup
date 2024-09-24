@@ -1,4 +1,4 @@
-# Inspire Website
+# Idea Share Website
 
 ## Specification Deliverable
 
@@ -9,7 +9,7 @@ but few actually know what to do with them. Maybe you have an idea
 for a book, movie, website, restaurant, or a video game, but you lack the 
 time / money / skillset required to create it. And so, the idea dies, along
 with its potential to become something greater than a passing thought. 
-The idea sharing application allows you to easily record and publish your
+This idea sharing website allows you to easily record and publish your
 ideas. Your posts are then made available to people around the world who 
 can combine your inspiration with their skillset to build things you've 
 only ever dreamed of.

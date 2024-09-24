@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Share</title>
+</head>
+<body>
+<header>
+    <h1>Idea Share</h1>
+    <nav>
+        <menu>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="create_post.html">Create Post</a></li>
+            <li><a href="posts.html">View Posts</a></li>
+            <li><a href="inbox.html">Inbox</a></li>
+        </menu>
+    </nav>
+</header>
 
+<main>
+    <section id="welcome">
+        <h2>Welcome to Idea Share</h2>
+    </section>
+
+    <section id="user-auth">
+        <form method="get" action="login.html">
+            <div>
+                <span>Email</span>
+                <label>
+                    <input type="text" placeholder="your@email.com" required/>
+                </label>
+            </div>
+            <br>
+            <div>
+                <span>Password</span>
+                <label for="password"></label>
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </div>
+            <br>
+            <button type="submit">Login</button>
+            <button type="submit">Create</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <hr />
+    <span class="text-reset">Nathan Jones</span>
+    <br />
+    <a href="https://github.com/nathanyjones/startup.git">GitHub</a>
+</footer>
+
+</body>
+</html>
