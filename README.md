@@ -47,3 +47,14 @@ User information (username, password) is stored securely in the database.
 * WebSocket - As users publish posts, the posts are made available to be viewed
 in real time by other users. Replies, upvotes, and direct messages are
 also sent and displayed in real time.
+
+## HTML Deliverable
+
+For this deliverable, I built out the structure of my application using HTML.
+
+- [x] **HTML pages** - Five HTML pages which represent the home/login page, and pages for viewing posts, creating posts, receiving direct messages, and sending direct messages.
+- [x] **Links** - Each of the home, inbox, create post, and view posts links to each other. The inbox page has a link to the send message page.
+- [x] **Text** - My home page includes a quote, and each page has textual labels to help guide the user.
+- [x] **Images** - My image is featured on the home page (index.html) of my website.
+- [x] **DB/Login** - Input box and submit button for login. The idea posts represent data pulled from the database.
+- [x] **WebSocket** - The inbox page includes realtime messages displayed to the user. Users can also view and 'like' posts, all the data for which is displayed in realtime.
