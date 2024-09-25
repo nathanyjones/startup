@@ -9,6 +9,10 @@
     <body>
         <header>
             <h1>Inbox</h1>
+            
+            <!-- Placeholder for displaying Username based on stored user data -->
+            <h3>Logged in as User404 </h3>
+            
             <nav>
                 <menu>
                     <li><a href="index.html">Home</a></li>
@@ -20,7 +24,8 @@
 
         <main>
             <h2>Your Messages</h2>
-            <!-- Placeholder for the inbox messages -->
+            
+            <!-- Placeholder for real time messages loaded via WebSocket -->
             <div id="messages">
                 <Table border="1">
                     <tr>
@@ -42,6 +47,13 @@
                         <td>Hey, I really liked your idea for your cooking website. I have some web programming skills, so
                             would you want to collaborate with me, and we can build it together?</td>
                         <td><button class="reply">Reply</button></td>
+                    </tr>
+                    <!-- WebSocket message placeholders -->
+                    <tr id="placeholder-message">
+                        <td><em>Waiting for new messages...</em></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </Table>
             </div>
