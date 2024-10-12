@@ -50,5 +50,3 @@ website. Will probably need more.
   * required - Signified that a value is required to be valid.
 * HTML Media Elements: img, audio, video, svg, and canvas.
 * To display a video: \<video controls width="300" crossorigin="anonymous" src="video_link"> \</video>
-* Forms typically include divisions, which include labels, inputs, buttons, etc.
-* 
