@@ -44,22 +44,4 @@ form {
 #user-auth {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
-
-
-@media (max-height: 600px) {
-    header {
-        display: none;
-    }
-    footer {
-        display: none;
-    }
-    main {
-        flex: 1 100vh;
-    }
-}
+    alig

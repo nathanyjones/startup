@@ -45,17 +45,17 @@
 
 
 <main class="bg-secondary py-5">
-    <section id="welcome" class="container text-center mb-4">
+    <section id="welcome" class="container text-center mb-2">
         <h2 class="display-4">Welcome to Idea Share</h2>
         <i>Everything begins with an idea.</i>
         <br><br>
         <!-- Application Image -->
         <img src="Gemini_Generated_Image_rbhyv7rbhyv7rbhy.jpeg" class="img-fluid rounded" width="300" alt="AI generated image of lightbulb surrounded by artistic, creative, random objects.">
-        <h3 class="mt-4">Login or Create Account</h3>
     </section>
 
     <section id="user-auth" class="container">
-        <form method="get" action="posts.html" class="bg-light p-4 rounded shadow">
+        <h3 class="mt-4">Login or Create Account</h3>
+        <form method="get" action="posts.html" class="bg-secondary">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" id="email" name="email" class="form-control" placeholder="your@email.com" required/>
@@ -64,9 +64,9 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
             </div>
-            <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary">Login</button>
-                <button type="submit" class="btn btn-secondary">Create</button>
+            <div class="d-flex justify-content-md-center">
+                <button type="submit" class="btn btn-dark me-3">Login</button>
+                <button type="submit" class="btn btn-dark">Create</button>
             </div>
         </form>
     </section>
@@ -75,7 +75,7 @@
     <footer class="bg-dark text-white-50">
         <div class="container-fluid">
             <span class="text-reset">Nathan Jones</span>
-            <a class="text-reset" href="https://github.com/nathanyjones/startup.git">GitHub</a>
+            <a class="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
         </div>
     </footer>
 </body>
