@@ -1,3 +1,15 @@
 main h2 {
     padding-bottom: 2%;
- 
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.buttonHolder {
+    text-align: center;
+}
+
+form {
+    width: 40%;
+    min-width: 400px;
+}
+
