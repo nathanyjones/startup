@@ -58,3 +58,14 @@ For this deliverable, I built out the structure of my application using HTML.
 - [x] **Images** - My image is featured on the home page (index.html) of my website.
 - [x] **DB/Login** - Input box and submit button for login. The idea posts represent data pulled from the database.
 - [x] **WebSocket** - The inbox page includes realtime messages displayed to the user. Users can also view and 'like' posts, all the data for which is displayed in realtime.
+
+## CSS Deliverable
+
+For this deliverable, I properly styles my application into its final appearance.
+
+- [x] **Header, footer, and main content body** - All properly styled with css to create coherent and visually pleasing pages.
+- [x] **Navigation elements** - Navigation bar is correctly styled, looks professional, and can be easily used to navigate the website.
+- [x] **Responsive to Window Resizing** - Elements of pages adjust based on screen size to properly fit.
+- [x] **Application Elements** - All elements on the web page are properly styled, including colors, font usage, and sizes for forms, text boxes, buttons, etc.
+- [x] **Application Text Content** - All text content is properly styled, with good usage of font size and consistent font styles.
+- [x] **Application Image** - All images are properly styled to fit on the webpage and adjust in size as needed.
