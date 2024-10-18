@@ -50,3 +50,29 @@ website. Will probably need more.
   * required - Signified that a value is required to be valid.
 * HTML Media Elements: img, audio, video, svg, and canvas.
 * To display a video: \<video controls width="300" crossorigin="anonymous" src="video_link"> \</video>
+* To display an image with a hyperlink, wrap the \<img> element in an \<a> tag with the href attribute set to the link.
+* Other Useful Tags:
+  * Paragraph: <p>
+  * Ordered List: <ol>
+  * Unordered List: <ul>
+  * First Level Heading: <h1>
+  * Second Level Heading: <h2>
+  * Third Level Heading: <h3>
+* To declare a document as an HTML document: <i> \<!DOCTYPE html> <\i>
+* 
+
+### Useful CSS Information
+* The # selector allows you to target elements by ID.
+* The . selector allows you to target elements by class.
+* Margin is the space around an element's border (placement of elements on screen).
+* Padding is the space between the element's border and the element's content (placement of content within an element).
+* flex: 0 80px --> indicates that the element does not grow (0) with a starting height of 80px.
+* Media queries (@media) allow us to properly resize for smaller screens.
+* CSS Box Model from inside out: Content -> Padding -> Border -> Margin 
+
+### Useful JavaScript Information
+* Arrow functions syntax: <i>const FunctionName = (parameter(s)) => {function_body return result;}<\i>
+* The DOM is an object representation of the HTML elements that the browser uses to render the display. We can modify the DOM
+using JavaScript, and functions like insertChild, deleteElement, etc.
+* Default value of display property for span elements is 'inline'.
+* To update the text color of an element with id="byu": document.getElementById("byu").style.color = "green";
