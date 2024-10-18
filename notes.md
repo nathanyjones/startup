@@ -25,7 +25,7 @@ README File: https://github.com/nathanyjones/startup/blob/b0f6172ec1e47766a126cd
 4. Commit the resolution and push up the result.
 
 ### Website Information
-* **Link to Website:** https://ideashare.click
+* **Link to Website:** https://startuo.ideashare.click
 
 ### Notes from Creating Webserver
 * Must release Elastic IP Address to stop being charged for it.
@@ -52,14 +52,14 @@ website. Will probably need more.
 * To display a video: \<video controls width="300" crossorigin="anonymous" src="video_link"> \</video>
 * To display an image with a hyperlink, wrap the \<img> element in an \<a> tag with the href attribute set to the link.
 * Other Useful Tags:
-  * Paragraph: <p>
-  * Ordered List: <ol>
-  * Unordered List: <ul>
-  * First Level Heading: <h1>
-  * Second Level Heading: <h2>
-  * Third Level Heading: <h3>
+  * Paragraph: \<p>
+  * Ordered List: \<ol>
+  * Unordered List: \<ul>
+  * First Level Heading: \<h1>
+  * Second Level Heading: \<h2>
+  * Third Level Heading: \<h3>
 * To declare a document as an HTML document: <i> \<!DOCTYPE html> <\i>
-* 
+* Use the \<script> tag to include JavaScript in the HTML file.
 
 ### Useful CSS Information
 * The # selector allows you to target elements by ID.
@@ -76,3 +76,27 @@ website. Will probably need more.
 using JavaScript, and functions like insertChild, deleteElement, etc.
 * Default value of display property for span elements is 'inline'.
 * To update the text color of an element with id="byu": document.getElementById("byu").style.color = "green";
+* To add new properties to JavaScript objects, you either use dot notation or bracket notation. Ex. object.height = 10;
+* If statements, for loops, and while loops all have the same formatting as in Java/C++.
+* Switch statements are similar to if statements. switch(expression) {case value1: ... break case value2: ... break default: ...}
+* Promises:
+  * Pending: Initial state, operation is not yet completed.
+  * Fulfilled: Operation was successfully completed, and the promise has a resolved value.
+  * Rejected: The operation failed, and the promise has a reason for the failure (error).
+  * .then(): Attaches a callback for a fulfilled promise.
+  * .catch(): Attaches a callback for a rejected promise.
+  * .finally(): Attaches a callback that will be executed regardless of the outcome of the promise.
+
+### Useful Terminal Commands
+* ssh - Used to create a remote shell session.
+
+### Miscellaneous Info
+* Ex. banana.fruit.bozo.click Breakdown:
+  * Top Level Domain: .click
+  * Root Domain: bozo.click
+  * Subdomains: banana.fruit.bozo.click, fruit.bozo.click
+* A DNS A record can only point to an IP address
+* Ports:
+  * Port 80 - Reserved for HTTP
+  * Port 443 - Resereved fore HTTPS
+  * Pot 22 - Reserved for SSH (Secure Shell)
