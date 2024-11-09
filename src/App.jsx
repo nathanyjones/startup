@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Home } from './home/home';
-import { Play } from './play/play';
-import { Scores } from './scores/scores';
-import { About } from './about/about';
+import { CreatePost } from './create_post/create_post';
+import { Inbox } from './inbox/inbox';
+import { ViewPosts } from './view_posts/view_posts';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
@@ -15,69 +15,67 @@ function App() {
     return (
         <BrowserRouter>
             <div className='body bg-dark text-light'>
-                <header className='container-fluid'>
-                    <nav className='navbar fixed-top navbar-dark'>
-                        <div className='navbar-brand'>
-                            Simon<sup>&reg;</sup>
-                        </div>
-                        <menu className='navbar-nav'>
-                            <li className='nav-item'>
-                                <NavLink className='nav-link' to=''>
-                                    Login
-                                </NavLink>
-                            </li>
-                            {authState === AuthState.Authenticated && (
-                                <li className='nav-item'>
-                                    <NavLink className='nav-link' to='play'>
-                                        Play
-                                    </NavLink>
-                                </li>
-                            )}
-                            {authState === AuthState.Authenticated && (
-                                <li className='nav-item'>
-                                    <NavLink className='nav-link' to='scores'>
-                                        Scores
-                                    </NavLink>
-                                </li>
-                            )}
-                            <li className='nav-item'>
-                                <NavLink className='nav-link' to='about'>
-                                    About
-                                </NavLink>
-                            </li>
-                        </menu>
-                    </nav>
-                </header>
-
                 <Routes>
                     <Route
                         path='/'
                         element={
-                            <Login
-                                userName={userName}
-                                authState={authState}
-                                onAuthChange={(userName, authState) => {
-                                    setAuthState(authState);
-                                    setUserName(userName);
-                                }}
+                            <Home
+                                // userName={userName}
+                                // authState={authState}
+                                // onAuthChange={(userName, authState) => {
+                                //     setAuthState(authState);
+                                //     setUserName(userName);
+                                // }}
                             />
                         }
                         exact
                     />
-                    <Route path='/play' element={<Play userName={userName} />} />
-                    <Route path='/scores' element={<Scores />} />
-                    <Route path='/about' element={<About />} />
-                    <Route path='*' element={<NotFound />} />
+                    <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
+                    <Route path='/view-posts' element={<ViewPosts/>}/>
+                    <Route path='/inbox' element={<Inbox/>}/>
+                    {/*<Route path={'/send-message' element={<SendMessage />}}*/}
+                    <Route path='*' element={<NotFound/>}/>
                 </Routes>
-
-                <footer className='bg-dark text-dark text-muted'>
-                    <div className='container-fluid'>
-                        <span className='text-reset'>Author Name(s)</span>
-                        <a className='text-reset' href='https://github.com/webprogramming260/simon-react'>
-                            Source
-                        </a>
+                
+                <header className="container-fluid">
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div className="container-fluid">
+                            <a className="navbar-brand" href="index.html">Idea Share</a>
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarNav">
+                                <ul className="navbar-nav me-auto">
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/">Home</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/create-post">Create Post</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link active" to="/view-posts">View Posts</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/inbox">Inbox</NavLink>
+                                    </li>
+                                </ul>
+                                <span className="navbar-text text-light me-3">
+                                    Logged in as: 'Username'
+                                </span>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+                
+                <footer className="bg-dark text-white-50">
+                    <div className="container-fluid">
+                        <span className="text-reset">Nathan Jones</span>
+                        <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
                     </div>
                 </footer>
+                
             </div>
         </BrowserRouter>
     );
