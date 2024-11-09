@@ -1,41 +1,11 @@
 import React from 'react';
-import './main.css';
+import '../index.css';
 import './inbox.css';
 import { Link } from 'react-router-dom';
 
 export function Inbox() {
     return (
         <>
-            <header className="container-fluid">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div className="container-fluid">
-                        <Link className="navbar-brand" to="/">Idea Share</Link>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNav">
-                            <ul className="navbar-nav me-auto">
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/">Home</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/create-post">Create Post</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/posts">View Posts</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link active" to="/inbox">Inbox</Link>
-                                </li>
-                            </ul>
-                            <span className="navbar-text text-light me-3">
-                                Logged in as: 'Username'
-                            </span>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-
             <main className="container-fluid bg-secondary">
                 <h1 className="display-4 text-white py-4">Your Messages</h1>
 
@@ -63,13 +33,6 @@ export function Inbox() {
 
                 <Link id="send_message_button" to="/send-message" className="btn btn-dark mb-3">Send a Message</Link>
             </main>
-
-            <footer className="bg-dark text-white-50">
-                <div className="container-fluid">
-                    <span className="text-reset">Nathan Jones</span>
-                    <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
-                </div>
-            </footer>
         </>
     );
 }

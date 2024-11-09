@@ -1,39 +1,11 @@
 import React, { useState } from 'react';
+import '../index.css';
 import './home.css';
-import { Link } from 'react-router-dom';
 
 export function Home() {
     const [username, setUsername] = useState("Username");
     return (
-        <div className="home">
-            <header className="container-fluid">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div className="container-fluid">
-                        <Link className="navbar-brand" to="/">Idea Share</Link>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNav">
-                            <ul className="navbar-nav me-auto">
-                                <li className="nav-item">
-                                    <Link className="nav-link active" to="/">Home</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/create-post">Create Post</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/posts">View Posts</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/inbox">Inbox</Link>
-                                </li>
-                            </ul>
-                            <span className="navbar-text text-light me-3">Logged in as: {username}"</span>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-
+        <>
             <main className="bg-secondary py-5">
                 <section id="welcome" className="container text-center mb-2">
                     <h2 className="display-4">Welcome to Idea Share</h2>
@@ -59,38 +31,6 @@ export function Home() {
                     </form>
                 </section>
             </main>
-
-            <footer className="bg-dark text-white-50">
-                <div className="container-fluid">
-                    <span className="text-reset">Nathan Jones</span>
-                    <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
-                </div>
-            </footer>
-        </div>
-    );
-}
-
-import { Unauthenticated } from './unauthenticated';
-import { Authenticated } from './authenticated';
-import { AuthState } from './authState';
-
-export function Login({ userName, authState, onAuthChange }) {
-    return (
-        <main className='container-fluid bg-secondary text-center'>
-            <div>
-                {authState !== AuthState.Unknown && <h1>Welcome to Simon</h1>}
-                {authState === AuthState.Authenticated && (
-                    <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
-                )}
-                {authState === AuthState.Unauthenticated && (
-                    <Unauthenticated
-                        userName={userName}
-                        onLogin={(loginUserName) => {
-                            onAuthChange(loginUserName, AuthState.Authenticated);
-                        }}
-                    />
-                )}
-            </div>
-        </main>
+        </>
     );
 }
