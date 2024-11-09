@@ -16,27 +16,6 @@ function App() {
     return (
         <BrowserRouter>
             <div className='body bg-dark text-light'>
-                <Routes>
-                    <Route
-                        path='/'
-                        element={
-                            <Home
-                                // userName={userName}
-                                // authState={authState}
-                                // onAuthChange={(userName, authState) => {
-                                //     setAuthState(authState);
-                                //     setUserName(userName);
-                                // }}
-                            />
-                        }
-                        exact
-                    />
-                    <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
-                    <Route path='/view-posts' element={<ViewPosts/>}/>
-                    <Route path='/inbox' element={<Inbox/>}/>
-                    {/*<Route path={'/send-message' element={<SendMessage />}}*/}
-                    <Route path='*' element={<NotFound/>}/>
-                </Routes>
                 
                 <header className="container-fluid">
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -69,6 +48,28 @@ function App() {
                         </div>
                     </nav>
                 </header>
+
+                <Routes>
+                    <Route
+                        path='/'
+                        element={
+                            <Home
+                                // userName={userName}
+                                // authState={authState}
+                                // onAuthChange={(userName, authState) => {
+                                //     setAuthState(authState);
+                                //     setUserName(userName);
+                                // }}
+                            />
+                        }
+                        exact
+                    />
+                    <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
+                    <Route path='/view-posts' element={<ViewPosts/>}/>
+                    <Route path='/inbox' element={<Inbox/>}/>
+                    {/*<Route path={'/send-message' element={<SendMessage />}}*/}
+                    <Route path='*' element={<NotFound/>}/>
+                </Routes>
                 
                 <footer className="bg-dark text-white-50">
                     <div className="container-fluid">
@@ -76,7 +77,7 @@ function App() {
                         <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
                     </div>
                 </footer>
-                
+
             </div>
         </BrowserRouter>
     );
