@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 export function CreatePost() {
     return (
+        <>
         <html lang="en">
         <head>
             <meta charSet="UTF-8" />
@@ -45,8 +46,8 @@ export function CreatePost() {
                             </li>
                         </ul>
                         <span className="navbar-text text-light me-3">
-                                    Logged in as: 'Username'
-                                </span>
+                            Logged in as: 'Username'
+                        </span>
                     </div>
                 </div>
             </nav>
@@ -81,6 +82,7 @@ export function CreatePost() {
         </footer>
         </body>
         </html>
+        </>
     );
 }
 
