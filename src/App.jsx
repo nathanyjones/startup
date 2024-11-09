@@ -5,6 +5,7 @@ import { CreatePost } from './create_post/create_post';
 import { Inbox } from './inbox/inbox';
 import { ViewPosts } from './view_posts/view_posts';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 import './app.css';
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
                 <header className="container-fluid">
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                         <div className="container-fluid">
-                            <a className="navbar-brand" href="index.html">Idea Share</a>
+                            <NavLink className="navbar-brand" to="/">Idea Share</NavLink>
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                                     aria-label="Toggle navigation">
@@ -49,16 +50,16 @@ function App() {
                             <div className="collapse navbar-collapse" id="navbarNav">
                                 <ul className="navbar-nav me-auto">
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to="/">Home</NavLink>
+                                        <NavLink className="nav-link" to="">Home</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to="/create-post">Create Post</NavLink>
+                                        <NavLink className="nav-link" to="create-post">Create Post</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link active" to="/view-posts">View Posts</NavLink>
+                                        <NavLink className="nav-link active" to="view-posts">View Posts</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link" to="/inbox">Inbox</NavLink>
+                                        <NavLink className="nav-link" to="inbox">Inbox</NavLink>
                                     </li>
                                 </ul>
                                 <span className="navbar-text text-light me-3">

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './main.css';
+import '../index.css';
 import './posts.css';
 
 export function ViewPosts() {
