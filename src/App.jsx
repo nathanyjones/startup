@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { Home } from './Home/home';
-// import { Play } from './play/play';
-// import { Scores } from './scores/scores';
-// import { About } from './about/about';
-// import { AuthState } from './login/authState';
+import { Home } from './home/home';
+import { Play } from './play/play';
+import { Scores } from './scores/scores';
+import { About } from './about/about';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
