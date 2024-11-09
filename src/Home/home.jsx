@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './home.css';
 import { Link } from 'react-router-dom';
 
-function Home() {
+export function Home() {
     const [username, setUsername] = useState("Username");
     return (
         <div className="home">
@@ -28,7 +28,7 @@ function Home() {
                                     <Link className="nav-link" to="/inbox">Inbox</Link>
                                 </li>
                             </ul>
-                            <span className="navbar-text text-light me-3">Logged in as: "Username"</span>
+                            <span className="navbar-text text-light me-3">Logged in as: {username}"</span>
                         </div>
                     </div>
                 </nav>
@@ -70,4 +70,27 @@ function Home() {
     );
 }
 
-export default Home;
+import { Unauthenticated } from './unauthenticated';
+import { Authenticated } from './authenticated';
+import { AuthState } from './authState';
+
+export function Login({ userName, authState, onAuthChange }) {
+    return (
+        <main className='container-fluid bg-secondary text-center'>
+            <div>
+                {authState !== AuthState.Unknown && <h1>Welcome to Simon</h1>}
+                {authState === AuthState.Authenticated && (
+                    <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+                )}
+                {authState === AuthState.Unauthenticated && (
+                    <Unauthenticated
+                        userName={userName}
+                        onLogin={(loginUserName) => {
+                            onAuthChange(loginUserName, AuthState.Authenticated);
+                        }}
+                    />
+                )}
+            </div>
+        </main>
+    );
+}
