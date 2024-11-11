@@ -1,37 +1,41 @@
 body {
+  margin: 0;
   display: flex;
   flex-direction: column;
-  min-width: 375px;
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
 
 header {
-  flex: 0 40px;
+  flex: 0 0 auto;
 }
 
 main {
-  flex: 1 calc(100vh - 110px);
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   font-size: larger;
-}
-
-menu {
-  flex: 1;
-  display: flex;
-  flex-direction: row !important;
-  list-style: none;
+  width: 100%;
 }
 
 footer {
-  flex: 0 30px;
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 1em;
+  background-color: #333;
+  color: #fff;
+  text-align: center; /* Center-aligns the content within the footer */
 }
 
 footer a {
-  float: right;
+  color: #aaa;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
 }
 
 #login {
@@ -49,10 +53,6 @@ footer a {
   height: 100%;
 }
 
-menu .nav-item {
-  padding: 0 0.3em;
-}
-
 @media (max-height: 600px) {
   header {
     display: none;
@@ -63,8 +63,4 @@ menu .nav-item {
   main {
     flex: 1 100vh;
   }
-}
-
-#display_user_name {
-  color: white;
 }

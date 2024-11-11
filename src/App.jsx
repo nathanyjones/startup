@@ -4,9 +4,9 @@ import { Home } from './home/home';
 import { CreatePost } from './create_post/create_post';
 import { Inbox } from './inbox/inbox';
 import { ViewPosts } from './view_posts/view_posts';
+import { SendMessage } from './send_message/send_message';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import './app.css';
 
 function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
@@ -35,14 +35,17 @@ function App() {
                                         <NavLink className="nav-link" to="create-post">Create Post</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link active" to="view-posts">View Posts</NavLink>
+                                        <NavLink className="nav-link" to="view-posts">View Posts</NavLink>
                                     </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link" to="inbox">Inbox</NavLink>
                                     </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="send-message">Send Message</NavLink>
+                                    </li>
                                 </ul>
                                 <span className="navbar-text text-light me-3">
-                                    Logged in as: 'Username'
+                                    Logged in as: {userName}
                                 </span>
                             </div>
                         </div>
@@ -54,7 +57,7 @@ function App() {
                         path='/'
                         element={
                             <Home
-                                // userName={userName}
+                                userName={userName}
                                 // authState={authState}
                                 // onAuthChange={(userName, authState) => {
                                 //     setAuthState(authState);
@@ -67,8 +70,8 @@ function App() {
                     <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
                     <Route path='/view-posts' element={<ViewPosts/>}/>
                     <Route path='/inbox' element={<Inbox/>}/>
-                    {/*<Route path={'/send-message' element={<SendMessage />}}*/}
-                    <Route path='*' element={<NotFound/>}/>
+                    <Route path='/send-message' element={<SendMessage />}/>
+                    <Route path='*' element={<NotFound/>} />
                 </Routes>
                 
                 <footer className="bg-dark text-white-50">

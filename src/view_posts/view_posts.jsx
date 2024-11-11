@@ -6,36 +6,7 @@ import './posts.css';
 export function ViewPosts() {
     return (
         <div className="bg-dark text-light">
-            <header className="container-fluid">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div className="container-fluid">
-                        <a className="navbar-brand" href="index.html">Idea Share</a>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNav">
-                            <ul className="navbar-nav me-auto">
-                                <li className="nav-item">
-                                    <a className="nav-link" href="index.html">Home</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="create_post.html">Create Post</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link active" href="posts.html">View Posts</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="inbox.html">Inbox</a>
-                                </li>
-                            </ul>
-                            <span className="navbar-text text-light me-3">
-                                Logged in as: 'Username'
-                            </span>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-
+            
             <main className="container-fluid bg-secondary">
                 <h1 className="display-4 text-white py-4">Explore Ideas</h1>
                 <section className="mt-3" id="posts-section">
@@ -76,13 +47,7 @@ export function ViewPosts() {
                     </div>
                 </section>
             </main>
-
-            <footer className="bg-dark text-white-50">
-                <div className="container-fluid">
-                    <span className="text-reset">Nathan Jones</span>
-                    <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
-                </div>
-            </footer>
+            
         </div>
     );
 }
