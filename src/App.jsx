@@ -8,57 +8,17 @@ import { SendMessage } from './send_message/send_message';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
-function LoginDisplay() {
-    if (localStorage.getItem('userName') !== null) {
-        return (<span className="navbar-text text-light me-3"><i>Logged in as: {localStorage.getItem('userName')}</i></span>)
-    }
-    else {
-        return (<span className="navbar-text text-light me-3"><i>Not logged in</i></span>)
-    }
-}
-
 function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const [userName, setUserName] = React.useState(localStorage.getItem('email') || '');
+    // const [loggedIn, setLoggedIn] = React.useState(false);
     // const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     // const [authState, setAuthState] = React.useState(currentAuthState);
 
     return (
         <BrowserRouter>
             <div className='body bg-dark text-light'>
-                
-                <header className="container-fluid">
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <div className="container-fluid">
-                            <NavLink className="navbar-brand" to="/">Idea Share</NavLink>
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                                    aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
-                            <div className="collapse navbar-collapse" id="navbarNav">
-                                <ul className="navbar-nav me-auto">
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" to="">Home</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" to="create-post">Create Post</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" to="view-posts">View Posts</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" to="inbox">Inbox</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink className="nav-link" to="send-message">Send Message</NavLink>
-                                    </li>
-                                </ul>
-                                <LoginDisplay />
-                            </div>
-                        </div>
-                    </nav>
-                </header>
-
+                <Header />
+                p
                 <Routes>
                     <Route
                         path='/'
@@ -93,14 +53,50 @@ function App() {
     );
 }
 
-// function LoginDisplay() {
-//     if (localStorage.getItem('userName') !== null) {
-//         return (<span className="navbar-text text-light me-3">Logged in as: {userName}</span>)
-//     }
-//     else {
-//         return (<span className="navbar-text text-light me-3">Not logged in{userName}</span>)
-//     }
-// }
+function Header() {
+    return (
+    <header className="container-fluid">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container-fluid">
+                <NavLink className="navbar-brand" to="/">Idea Share</NavLink>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav me-auto">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="">Home</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="create-post">Create Post</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="view-posts">View Posts</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="inbox">Inbox</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="send-message">Send Message</NavLink>
+                        </li>
+                    </ul>
+                    <LoginStatus/>
+                </div>
+            </div>
+        </nav>
+    </header> )
+}
+
+function LoginStatus() {
+    if (localStorage.getItem('userName') !== null) {
+        return (
+            <span className="navbar-text text-light me-3"><i>Logged in as: {localStorage.getItem('email')}</i></span>)
+    } else {
+        return (<span className="navbar-text text-light me-3"><i>Not logged in</i></span>)
+    }
+}
 
 function NotFound() {
     return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
