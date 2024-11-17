@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('email') || '');
-    // const [loggedIn, setLoggedIn] = React.useState(false);
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const [loggedIn, setLoggedIn] = React.useState(false);
     // const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     // const [authState, setAuthState] = React.useState(currentAuthState);
 
@@ -18,22 +18,9 @@ function App() {
         <BrowserRouter>
             <div className='body bg-dark text-light'>
                 <Header />
-                p
+
                 <Routes>
-                    <Route
-                        path='/'
-                        element={
-                            <Home
-                                userName={userName}
-                                // authState={authState}
-                                // onAuthChange={(userName, authState) => {
-                                //     setAuthState(authState);
-                                //     setUserName(userName);
-                                // }}
-                            />
-                        }
-                        exact
-                    />
+                    <Route path='/' element={<Home userName={userName} setUserName={setUserName}/>} exact/>
                     <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
                     <Route path='/view-posts' element={<ViewPosts/>}/>
                     <Route path='/inbox' element={<Inbox/>}/>
@@ -41,13 +28,7 @@ function App() {
                     <Route path='*' element={<NotFound/>} />
                 </Routes>
                 
-                <footer className="bg-dark text-white-50">
-                    <div className="container-fluid d-flex justify-content-between">
-                        <span className="text-reset">Nathan Jones</span>
-                        <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
-                    </div>
-                </footer>
-
+                <Footer />
             </div>
         </BrowserRouter>
     );
@@ -82,11 +63,23 @@ function Header() {
                             <NavLink className="nav-link" to="send-message">Send Message</NavLink>
                         </li>
                     </ul>
-                    <LoginStatus/>
+                    <LoginStatus />
                 </div>
             </div>
         </nav>
-    </header> )
+    </header> 
+    )
+}
+
+function Footer() {
+    return (
+    <footer className="bg-dark text-white-50">
+        <div className="container-fluid d-flex justify-content-between">
+            <span className="text-reset">Nathan Jones</span>
+            <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
+        </div>
+    </footer>
+    )
 }
 
 function LoginStatus() {
