@@ -6,7 +6,16 @@ import { Inbox } from './inbox/inbox';
 import { ViewPosts } from './view_posts/view_posts';
 import { SendMessage } from './send_message/send_message';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './app.css';
+
+function LoginDisplay() {
+    if (localStorage.getItem('userName') !== null) {
+        return (<span className="navbar-text text-light me-3"><i>Logged in as: {localStorage.getItem('userName')}</i></span>)
+    }
+    else {
+        return (<span className="navbar-text text-light me-3"><i>Not logged in</i></span>)
+    }
+}
 
 function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
@@ -44,9 +53,7 @@ function App() {
                                         <NavLink className="nav-link" to="send-message">Send Message</NavLink>
                                     </li>
                                 </ul>
-                                <span className="navbar-text text-light me-3">
-                                    Logged in as: {userName}
-                                </span>
+                                <LoginDisplay />
                             </div>
                         </div>
                     </nav>
@@ -75,7 +82,7 @@ function App() {
                 </Routes>
                 
                 <footer className="bg-dark text-white-50">
-                    <div className="container-fluid">
+                    <div className="container-fluid d-flex justify-content-between">
                         <span className="text-reset">Nathan Jones</span>
                         <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
                     </div>
@@ -85,6 +92,15 @@ function App() {
         </BrowserRouter>
     );
 }
+
+// function LoginDisplay() {
+//     if (localStorage.getItem('userName') !== null) {
+//         return (<span className="navbar-text text-light me-3">Logged in as: {userName}</span>)
+//     }
+//     else {
+//         return (<span className="navbar-text text-light me-3">Not logged in{userName}</span>)
+//     }
+// }
 
 function NotFound() {
     return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;

@@ -1,17 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../index.css';
 import './posts.css';
 
 export function ViewPosts() {
     return (
-        <div className="bg-dark text-light">
-            
             <main className="container-fluid bg-secondary">
                 <h1 className="display-4 text-white py-4">Explore Ideas</h1>
                 <section className="mt-3" id="posts-section">
                     <div className="row">
-                        {/* Sample Post */}
                         <div className="col-md-4 mb-4">
                             <div className="post container rounded bg-dark p-4 shadow">
                                 <h3>Virtual Travel Experiences</h3>
@@ -47,8 +43,6 @@ export function ViewPosts() {
                     </div>
                 </section>
             </main>
-            
-        </div>
     );
 }
 

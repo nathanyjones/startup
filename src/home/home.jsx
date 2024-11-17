@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../index.css';
 import './home.css';
 
 export function Home() {
@@ -11,7 +10,7 @@ export function Home() {
                     <h2 className="display-4">Welcome to Idea Share</h2>
                     <i>Everything begins with an idea.</i>
                     <br /><br />
-                    <img src="/../public/Gemini_Generated_Image_rbhyv7rbhyv7rbhy.jpeg" className="img-fluid rounded" style={{ maxWidth: '80%' }} width="350" alt="AI generated image of lightbulb surrounded by artistic, creative, random objects." />
+                    <img src="/Gemini_Generated_Image_rbhyv7rbhyv7rbhy.jpeg" className="img-fluid rounded" style={{ maxWidth: '80%' }} width="350" alt="AI generated image of lightbulb surrounded by artistic, creative, random objects." />
                 </section>
                 <section id="user-auth" className="container">
                     <h3 className="mt-4">Login or Create Account</h3>

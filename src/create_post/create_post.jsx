@@ -1,5 +1,4 @@
 import React from 'react';
-import '../index.css';
 import './create_post.css';
 import { Link } from 'react-router-dom';
 

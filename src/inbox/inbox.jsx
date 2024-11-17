@@ -1,5 +1,4 @@
 import React from 'react';
-import '../index.css';
 import './inbox.css';
 import { Link } from 'react-router-dom';
 

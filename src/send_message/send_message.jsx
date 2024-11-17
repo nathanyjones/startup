@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../index.css';
 import './send_message.css';
 
 export function SendMessage() {
