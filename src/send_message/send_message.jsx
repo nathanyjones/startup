@@ -68,31 +68,4 @@ function NewMessageForm({recipient, subject, message, setRecipient, setSubject, 
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="message" className="form-label">Message</label>
-                    <textarea
-                        id="message"
-                        name="message"
-                        rows="10"
-                        className="form-control"
-                        placeholder="Write your message here..."
-                        required
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                    />
-                </div>
-                <div className="buttonHolder">
-                    <button type="submit" className="btn btn-secondary">Send Message</button>
-                </div>
-            </form>
-        </main>
-    );
-}
-
-function MessageSentScreen({createNewForm}) {
-    return (
-        <main className="bg-secondary">
-            <h1 className="display-4 text-white py-2">Message Sent!</h1>
-            <button onClick={createNewForm} className="btn btn-primary mt-3"></button>
-        </main>
-    );
-}
+                    <label htmlFor="message" className="form-label">Me
