@@ -3,9 +3,12 @@ import './home.css';
 
 export function Home() {
     const [username, setUsername] = useState("Username");
+    const [userAuthVisible, setUserAuthVisible] = useState(true);
     
-    const doSomething = () => {
+    const doSomething = (e) => {
         console.log(username)
+        e.preventDefault();
+        setUserAuthVisible(false);
     }
     
     return (
@@ -16,12 +19,13 @@ export function Home() {
                 <br /><br />
                 <img src="/Gemini_Generated_Image_rbhyv7rbhyv7rbhy.jpeg" className="img-fluid rounded" style={{ maxWidth: '80%' }} width="350" alt="AI generated image of lightbulb surrounded by artistic, creative, random objects." />
             </section>
-            <section id="user-auth" className="container">
+            { userAuthVisible && 
+                <section id="user-auth" className="container">
                 <h3 className="mt-4">Login or Create Account</h3>
                 <form id="login" method="get" action="/view-posts" className="bg-secondary">
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">Email</label>
-                        <input type="email" id="email" name="email" className="form-control" placeholder="your@email.com" required />
+                        <input type="text" id="username" name="username" className="form-control" placeholder="your@email.com" required />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
@@ -32,7 +36,7 @@ export function Home() {
                         <button type="submit" className="btn btn-dark">Create</button>
                     </div>
                 </form>
-            </section>
+            </section> }
         </main>
     );
 }

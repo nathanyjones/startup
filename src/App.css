@@ -57,3 +57,14 @@ footer {
     flex: 1 100vh;
   }
 }
+
+h1 {
+  text-shadow: 3px 3px 5px black;
+}
+
+.bg-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
