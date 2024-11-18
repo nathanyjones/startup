@@ -5,17 +5,44 @@ export function SendMessage() {
     const [recipient, setRecipient] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
+    const [messageSent, setMessageSent] = useState(false);
     
     const Submit = (e) => {
         e.preventDefault();
         // Placeholder for actually sending the message (via server).
         console.log("Message Sent:", { recipient, subject, message });
+        setMessageSent(true);
     };
+    
+    const createNewForm = () => {
+        setRecipient('');
+        setSubject('');
+        setMessage('');
+        setMessageSent(false);
+    }
 
+    if (messageSent) {
+        return <MessageSentScreen createNewForm={createNewForm} />;
+    } else {
+        return (
+            <NewMessageForm
+                recipient={recipient}
+                subject={subject}
+                message={message}
+                setRecipient={setRecipient}
+                setSubject={setSubject}
+                setMessage={setMessage}
+                onSubmit={Submit}
+            />
+        );
+    }
+}
+
+function NewMessageForm({recipient, subject, message, setRecipient, setSubject, setMessage, onSubmit}) {
     return (
         <main className="bg-secondary">
             <h1 className="display-4 text-white py-2">Send a Message</h1>
-            <form id="message_form" onSubmit={Submit} className="bg-dark p-4 rounded shadow text-white">
+            <form id="message_form" onSubmit={onSubmit} className="bg-dark p-4 rounded shadow text-white">
                 <div className="mb-3">
                     <label htmlFor="recipient" className="form-label">Recipient</label>
                     <input
@@ -57,6 +84,15 @@ export function SendMessage() {
                     <button type="submit" className="btn btn-secondary">Send Message</button>
                 </div>
             </form>
+        </main>
+    );
+}
+
+function MessageSentScreen({createNewForm}) {
+    return (
+        <main className="bg-secondary">
+            <h1 className="display-4 text-white py-2">Message Sent!</h1>
+            <button onClick={createNewForm} className="btn btn-primary mt-3"></button>
         </main>
     );
 }

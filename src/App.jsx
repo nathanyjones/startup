@@ -18,7 +18,7 @@ function App() {
         <BrowserRouter>
             <div className='body bg-dark text-light'>
                 <Header />
-
+                
                 <Routes>
                     <Route path='/' element={<Home userName={userName} setUserName={setUserName}/>} exact/>
                     <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
