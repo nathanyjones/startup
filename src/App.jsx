@@ -10,76 +10,85 @@ import './app.css';
 
 function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
-    const [loggedIn, setLoggedIn] = React.useState(false);
-    // const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
-    // const [authState, setAuthState] = React.useState(currentAuthState);
+    const [loggedIn, setLoggedIn] = React.useState(userName ? true : false);
 
     return (
-        <BrowserRouter>
-            <div className='body bg-dark text-light'>
-                <Header />
-                
-                <Routes>
-                    <Route path='/' element={<Home userName={userName} setUserName={setUserName}/>} exact/>
-                    <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
-                    <Route path='/view-posts' element={<ViewPosts/>}/>
-                    <Route path='/inbox' element={<Inbox/>}/>
-                    <Route path='/send-message' element={<SendMessage />}/>
-                    <Route path='*' element={<NotFound/>} />
-                </Routes>
-                
-                <Footer />
-            </div>
-        </BrowserRouter>
-    );
-}
+            <BrowserRouter>
+                <div className='body bg-dark text-light'>
 
-function Header() {
-    return (
-    <header className="container-fluid">
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/">Idea Share</NavLink>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav me-auto">
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="">Home</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="create-post">Create Post</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="view-posts">View Posts</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="inbox">Inbox</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="send-message">Send Message</NavLink>
-                        </li>
-                    </ul>
-                    <LoginStatus />
+                    <header className="container-fluid">
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div className="container-fluid">
+                                <NavLink className="navbar-brand" to="/">Idea Share</NavLink>
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                        aria-label="Toggle navigation">
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+                                <div className="collapse navbar-collapse" id="navbarNav">
+                                    <ul className="navbar-nav me-auto">
+                                        <li className="nav-item">
+                                            <NavLink className="nav-link" to="">Home</NavLink>
+                                        </li>
+                                        {loggedIn && (
+                                            <li className="nav-item">
+                                                <NavLink className="nav-link" to="create-post">Create Post</NavLink>
+                                            </li>
+                                        )}
+                                        {loggedIn && (
+                                            <li className="nav-item">
+                                                <NavLink className="nav-link" to="view-posts">View Posts</NavLink>
+                                            </li>
+                                        )}
+                                        {loggedIn && (
+                                            <li className="nav-item">
+                                                <NavLink className="nav-link" to="inbox">Inbox</NavLink>
+                                            </li>
+                                        )}
+                                        {loggedIn && (
+                                            <li className="nav-item">
+                                                <NavLink className="nav-link" to="send-message">Send Message</NavLink>
+                                            </li>
+                                        )}
+                                    </ul>
+                                    <LoginStatus/>
+                                </div>
+                            </div>
+                        </nav>
+                    </header>
+
+                    <Routes>
+                        <Route
+                            path='/'
+                            element={
+                                <Home
+                                    userName={userName}
+                                    loggedIn={loggedIn}
+                                    onLoginChange={(userName, loggedIn) => {
+                                        setUserName(userName);
+                                        setLoggedIn(loggedIn);
+                                    }}
+                                />
+                            }
+                            exact
+                        />
+                        <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
+                        <Route path='/view-posts' element={<ViewPosts/>}/>
+                        <Route path='/inbox' element={<Inbox/>}/>
+                        <Route path='/send-message' element={<SendMessage/>}/>
+                        <Route path='*' element={<NotFound/>}/>
+                    </Routes>
+
+                    <footer className="bg-dark text-white-50">
+                        <div className="container-fluid d-flex justify-content-between">
+                            <span className="text-reset">Nathan Jones</span>
+                            <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
+                        </div>
+                    </footer>
+                    
                 </div>
-            </div>
-        </nav>
-    </header> 
-    )
-}
-
-function Footer() {
-    return (
-    <footer className="bg-dark text-white-50">
-        <div className="container-fluid d-flex justify-content-between">
-            <span className="text-reset">Nathan Jones</span>
-            <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
-        </div>
-    </footer>
-    )
+            </BrowserRouter>
+    );
 }
 
 function LoginStatus() {
