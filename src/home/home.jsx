@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './home.css';
 
-export function Home() {
-    const [username, setUsername] = useState("Username");
-    const [userAuthVisible, setUserAuthVisible] = useState(true);
+export function Home( {userName, loggedIn, onLoginChange} ) {
+    const [localUserName, setLocalUsername] = useState("");
+    const [password, setPassword] = useState("");
     
-    const doSomething = (e) => {
-        console.log(username)
+    const login = (e) => {
         e.preventDefault();
-        setUserAuthVisible(false);
+        localStorage.setItem('userName', localUserName);
+        onLoginChange(localUserName, true);
     }
     
     return (
@@ -19,21 +19,21 @@ export function Home() {
                 <br /><br />
                 <img src="/Gemini_Generated_Image_rbhyv7rbhyv7rbhy.jpeg" className="img-fluid rounded" style={{ maxWidth: '80%' }} width="350" alt="AI generated image of lightbulb surrounded by artistic, creative, random objects." />
             </section>
-            { userAuthVisible && 
+            { !loggedIn && 
                 <section id="user-auth" className="container">
                 <h3 className="mt-4">Login or Create Account</h3>
-                <form id="login" method="get" action="/view-posts" className="bg-secondary">
+                <form id="login" method="get" onSubmit={ login } action="/view-posts" className="bg-secondary">
                     <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email</label>
-                        <input type="text" id="username" name="username" className="form-control" placeholder="your@email.com" required />
+                        <label htmlFor="username" className="form-label">Username</label>
+                        <input type="text" id="username" name="username" className="form-control" placeholder="username" required />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input type="password" id="password" name="password" className="form-control" placeholder="password" required />
                     </div>
                     <div className="d-flex justify-content-md-center">
-                        <button type="submit" onClick={ doSomething } className="btn btn-dark me-3">Login</button>
-                        <button type="submit" className="btn btn-dark">Create</button>
+                        <button type="submit" className="btn btn-dark me-3">Login</button>
+                        {/*<button type="submit" className="btn btn-dark">Create</button>*/}
                     </div>
                 </form>
             </section> }

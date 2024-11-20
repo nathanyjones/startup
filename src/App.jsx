@@ -51,7 +51,7 @@ function App() {
                                             </li>
                                         )}
                                     </ul>
-                                    <LoginStatus/>
+                                    <LoginStatus userName={userName}/>
                                 </div>
                             </div>
                         </nav>
@@ -72,36 +72,4 @@ function App() {
                             }
                             exact
                         />
-                        <Route path='/create-post' element={<CreatePost userName={userName}/>}/>
-                        <Route path='/view-posts' element={<ViewPosts/>}/>
-                        <Route path='/inbox' element={<Inbox/>}/>
-                        <Route path='/send-message' element={<SendMessage/>}/>
-                        <Route path='*' element={<NotFound/>}/>
-                    </Routes>
-
-                    <footer className="bg-dark text-white-50">
-                        <div className="container-fluid d-flex justify-content-between">
-                            <span className="text-reset">Nathan Jones</span>
-                            <a className="text-reset" href="https://github.com/nathanyjones/startup.git">Source</a>
-                        </div>
-                    </footer>
-                    
-                </div>
-            </BrowserRouter>
-    );
-}
-
-function LoginStatus() {
-    if (localStorage.getItem('userName') !== null) {
-        return (
-            <span className="navbar-text text-light me-3"><i>Logged in as: {localStorage.getItem('email')}</i></span>)
-    } else {
-        return (<span className="navbar-text text-light me-3"><i>Not logged in</i></span>)
-    }
-}
-
-function NotFound() {
-    return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
-}
-
-export default App;
+                        <Route path='/create-post' element={<CreateP

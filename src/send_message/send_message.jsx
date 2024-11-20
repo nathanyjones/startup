@@ -9,7 +9,7 @@ export function SendMessage() {
     
     const Submit = (e) => {
         e.preventDefault();
-        // Placeholder for actually sending the message (via server).
+        // Placeholder for actually sending the message
         console.log("Message Sent:", { recipient, subject, message });
         setMessageSent(true);
     };
