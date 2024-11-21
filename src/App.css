@@ -6,8 +6,9 @@
   font-family: Arial, sans-serif;
 }
 
-header {
+header, footer {
   flex: 0 0 auto;
+  font-size: 1.2em;
 }
 
 main {

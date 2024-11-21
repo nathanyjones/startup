@@ -5,6 +5,7 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
     const [localUserName, setLocalUsername] = useState("");
     const [password, setPassword] = useState("");
     
+    
     const login = (e) => {
         e.preventDefault();
         localStorage.setItem('userName', localUserName);
@@ -29,7 +30,7 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
             { !loggedIn && 
                 <section id="user-auth" className="container">
                 <h3 className="mt-4">Login or Create Account</h3>
-                <form id="login" method="get" onSubmit={ login } action="/view-posts" className="bg-secondary">
+                <form id="login" method="get" onSubmit={ login } className="bg-secondary">
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input 
