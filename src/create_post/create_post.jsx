@@ -13,7 +13,9 @@ export function CreatePost() {
         // Mock functionality for now...
         localStorage.setItem('title', title);
         localStorage.setItem('postContent', postContent);
-        localStorage.setItem('date', new Date().toISOString());
+        let date = new Date();
+        let dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        localStorage.setItem('date', dateString);
         setTitle('')
         setPostContent('')
         navigate('/view-posts')

@@ -55,13 +55,9 @@ function Message({fromUsername, date, subject, incomingMessageContent, currentRe
             <p className="mb-2"><i>Subject: {subject}</i></p>
             <p>{incomingMessageContent}</p>
 
-            {(() => {
-                const replyElements = [];
-                for (let i = 0; i < replies.length; i++) {
-                    replyElements.push(<p key={i}>{replies[i]}</p>);
-                }
-                return replyElements;
-            })()}
+            {replies.map((reply, index) => (
+                <p key={index}>{reply}</p>
+            ))}
             
             {!replyClicked &&
                 <button className="btn btn-light btn-sm" onClick={(e) => setReplyClicked(true)}>Reply</button>}
