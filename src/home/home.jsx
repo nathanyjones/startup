@@ -11,6 +11,13 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
         onLoginChange(localUserName, true);
     }
     
+    const logout = (e) => {
+        localStorage.removeItem('userName');
+        setLocalUsername(null);
+        setPassword(null);
+        onLoginChange(null, false);
+    }
+    
     return (
         <main className="bg-secondary py-5">
             <section id="welcome" className="container text-center mb-2">
@@ -25,18 +32,33 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
                 <form id="login" method="get" onSubmit={ login } action="/view-posts" className="bg-secondary">
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
-                        <input type="text" id="username" name="username" className="form-control" placeholder="username" required />
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            className="form-control" 
+                            placeholder="username" 
+                            required 
+                            onChange={(e) => setLocalUsername(e.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" id="password" name="password" className="form-control" placeholder="password" required />
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            className="form-control" 
+                            placeholder="password" 
+                            required 
+                            onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <div className="d-flex justify-content-md-center">
                         <button type="submit" className="btn btn-dark me-3">Login</button>
-                        {/*<button type="submit" className="btn btn-dark">Create</button>*/}
+                        <button type="submit" className="btn btn-dark">Create</button>
                     </div>
                 </form>
             </section> }
+            {loggedIn && <button type="submit" onClick={logout} className="btn btn-dark">Logout</button>}
         </main>
     );
 }

@@ -14,12 +14,12 @@ export function CreatePost() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="content" className="form-label">Post Content:</label>
-                        <textarea id="content" name="content" rows="12" className="form-control" placeholder="Write your idea here..." required></textarea>
+                        <textarea id="content" name="content" rows="17" className="form-control" placeholder="Write your idea here..." required></textarea>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="tags" className="form-label">Tags:</label>
-                        <input type="text" id="tags" name="tags" className="form-control" required placeholder="Relevant Tags" />
-                    </div>
+                    {/*<div className="mb-3">*/}
+                    {/*    <label htmlFor="tags" className="form-label">Tags:</label>*/}
+                    {/*    <input type="text" id="tags" name="tags" className="form-control" required placeholder="Relevant Tags" />*/}
+                    {/*</div>*/}
                     <div className="buttonHolder">
                         <button type="submit" className="btn btn-secondary">Submit your Post!</button>
                     </div>

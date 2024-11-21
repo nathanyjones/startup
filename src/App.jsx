@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Home } from './home/home';
 import { CreatePost } from './create_post/create_post';
@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
-    const [loggedIn, setLoggedIn] = React.useState(userName ? true : false);
+    const [userName, setUserName] = useState(localStorage.getItem('userName') || '');
+    const [loggedIn, setLoggedIn] = useState(!!userName);
 
     return (
             <BrowserRouter>

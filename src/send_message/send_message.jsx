@@ -41,7 +41,7 @@ export function SendMessage() {
 
 function NewMessageForm({recipient, subject, message, setRecipient, setSubject, setMessage, onSubmit}) {
     return (
-        <main className="bg-secondary bg-customq">
+        <main className="bg-secondary bg-custom">
             <h1 className="display-4 text-white py-2">Send a Message</h1>
             <form id="message_form" onSubmit={onSubmit} className="bg-dark p-4 rounded shadow text-white">
                 <div className="mb-3">
@@ -58,10 +58,11 @@ function NewMessageForm({recipient, subject, message, setRecipient, setSubject, 
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="subject" className="form-label">Message</label>
+                    <label htmlFor="subject" className="form-label">Subject</label>
                     <textarea
                         id="subject"
                         name="subject"
+                        rows="1"
                         className="form-control"
                         placeholder="Subject"
                         value={subject}
