@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './send_message.css';
 
 export function SendMessage() {
-    const [recipient, setRecipient] = useState('');
+    const location = useLocation();
+    const [recipient, setRecipient] = useState(location.state?.recipient || '');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [messageSent, setMessageSent] = useState(false);
@@ -12,6 +14,7 @@ export function SendMessage() {
         // Placeholder for actually sending the message
         console.log("Message Sent:", { recipient, subject, message });
         setMessageSent(true);
+        localStorage.removeItem('recipient');
     };
     
     const createNewForm = () => {
@@ -30,7 +33,6 @@ export function SendMessage() {
                 subject={subject}
                 message={message}
                 setRecipient={setRecipient}
-                
                 setSubject={setSubject}
                 setMessage={setMessage}
                 onSubmit={Submit}

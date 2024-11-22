@@ -24,9 +24,9 @@ export function Inbox() {
                 currentReplies={["Yeah that sounds great! When do you want to start working on that?"]}
             />
 
-                <div className="message container bg-dark rounded text-white p-3 mb-3">
-                    <p className="mb"><em>New messages will appear here</em></p>
-                </div>
+    <div className="message container bg-dark rounded text-white p-3 mb-3">
+        <p className="mb"><em>New messages will appear here</em></p>
+    </div>
             
             <Link id="send_message_button" to="/send-message" className="btn btn-dark mb-3">Send a Message</Link>
         </main>

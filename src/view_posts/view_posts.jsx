@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import './posts.css';
 
 export function ViewPosts() {
@@ -82,6 +83,8 @@ function PostTemplate( {title, author, content, datePosted, numLikes, replies=[]
     const [likePressed, setLikePressed] = React.useState(liked);
     const [localNumLikes, setLocalNumLikes] = React.useState(numLikes);
     
+    const navigate = useNavigate()
+    
     const pressLike = () => {
         if (likePressed) {
             setLocalNumLikes(localNumLikes - 1);
@@ -100,10 +103,17 @@ function PostTemplate( {title, author, content, datePosted, numLikes, replies=[]
                 <p>{content}</p>
                 <p><em>Posted on: {datePosted}</em></p>
                 <div className="post_buttons mt-3">
-                    <button className="like btn btn-light me-2 mt-2" onClick={pressLike} >Like ({localNumLikes})</button>
-                    <button className="reply btn btn-light me-2 mt-2">Reply</button>
-                    <button className="view_replies btn btn-light me-2 mt-2">View Replies</button>
-                    <button className="dm btn btn-light me-2 mt-2">Direct Message</button>
+                    {author === localStorage.getItem('userName') &&
+                        <button className="like btn btn-light me-2 mt-2">{localNumLikes} Likes</button>}
+                    {author !== localStorage.getItem('userName') &&
+                        <>
+                        <button className="like btn btn-light me-2 mt-2" onClick={pressLike} >{likePressed ? 'Remove Like' : 'Like'} ({localNumLikes})</button>
+                        {/*<button className="reply btn btn-light me-2 mt-2">Reply</button>*/}
+                        </>
+                    }
+                    {/*<button className="view_replies btn btn-light me-2 mt-2">View Replies</button>*/}
+                    { author !== localStorage.getItem('userName') && 
+                        <button className="dm btn btn-light me-2 mt-2" onClick={() => {navigate('/send-message', {state: {recipient: author} }); localStorage.setItem('recipient', author)} }>Message</button> }
                 </div>
             </div>
         </div>
