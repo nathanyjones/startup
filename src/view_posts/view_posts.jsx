@@ -12,7 +12,7 @@ export function ViewPosts() {
                             author={localStorage.getItem('userName')}
                             content={localStorage.getItem('postContent')}
                             datePosted={localStorage.getItem('date')}
-                            numLikes={localStorage.getItem('numLikes')}
+                            numLikes={localStorage.getItem('numLikes') || 0}
                         />
                         
                         <PostTemplate
@@ -30,7 +30,7 @@ export function ViewPosts() {
                             content={"What if there was a VR platform that allows you to explore different countries from the comfort of your home. " +
                                 "Users could experience guided tours, interact with locals, and even learn the language of the place they are exploring!"}
                             datePosted={"2024-10-01"}
-                            numLikes={0}
+                            numLikes={1}
                         />
 
                         <PostTemplate
