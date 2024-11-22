@@ -87,6 +87,13 @@ using JavaScript, and functions like insertChild, deleteElement, etc.
   * .catch(): Attaches a callback for a rejected promise.
   * .finally(): Attaches a callback that will be executed regardless of the outcome of the promise.
 
+### Useful React Information
+* useState hook is used to create variables and associated setVariable functions.
+* useEffect hook is used to run a set of code every time one of the specified dependency variables changes.
+* A React component is basically just a reusable JSX function, which will often return a chunk of HTML for the application to render.
+* useNavigate / navigate() React hook can be used to navigate between pages easily, for instance when a button is clicked.
+* useLocation React hook is a useful way to transfer data between pages for usage.
+
 ### Useful Terminal Commands
 * ssh - Used to create a remote shell session.
 
