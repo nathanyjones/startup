@@ -45,7 +45,7 @@ I am going to use the required technologies in the following ways:
 * Database Data - Store post content, user profiles, and messages in a database.
   User information (username, password) is stored securely in the database.
 * WebSocket - As users publish posts, the posts are made available to be viewed
-  in real time by other users. Replies, upvotes, and direct messages are
+  in real time by other users. Likes and direct messages are
   also sent and displayed in real time.
 
 ## HTML Deliverable
@@ -69,3 +69,16 @@ For this deliverable, I properly styles my application into its final appearance
 - [x] **Application Elements** - All elements on the web page are properly styled, including colors, font usage, and sizes for forms, text boxes, buttons, etc.
 - [x] **Application Text Content** - All text content is properly styled, with good usage of font size and consistent font styles.
 - [x] **Application Image** - All images are properly styled to fit on the webpage and adjust in size as needed.
+
+## React Deliverable
+
+For this deliverable, I added JavaScript to implement and/or mock all functionality for my website, and added placeholders for future updates.
+
+- [x] **Transpiled/Bundled Using Vite** - Set up project as a Vite project, converted code to JS/JSX.
+- [x] **Multiple React Components**
+  - [x] **Login** - When you press the login button, the application stores the userName, and allows you to access and interact with the other pages.
+  - [x] **DataBase** - Displaying likes, posts, messages, etc. using localStorage and/or JSX functions. This will be replaced using database data in the future. 
+  - [x] **Websocket** - I used local storage, useNavigate, and useLocation hooks to mock the functionality of creating posts, sending messages, replying to messages, etc. These will all be replaced/added onto with WebSocket.
+  - [x] **Application Logic** - Pressing the 'like' button increases the number of likes for a post. Data like userName, message recipient, etc. are transferred between pages for use.
+- [x] **React Router** - Added react routing between home, view posts, send message, inbox, and create post pages. 
+- [x] **Reach Hooks** - Implemented multiple useState hooks to store and update variables. I also used the useLocation hook to transfer data between pages, and the useNavigate hook for navigation between pages using buttons. 
