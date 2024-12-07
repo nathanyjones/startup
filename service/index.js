@@ -5,17 +5,13 @@ const uuid = require('uuid');
 app.use(express.json());
 
 let users = {};
-let posts = {};
+let posts = [];
 let messages = {};
 
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
-
-// app.get('*', (_req, res) => {
-//     res.send({ msg: 'Simon service' });
-// });
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
@@ -29,7 +25,7 @@ apiRouter.post('/auth/create', async (req, res) => {
     } else {
         const user = { username: req.body.username, password: req.body.password, token: uuid.v4() };
         users[user.username] = user;
-
+        
         res.send({ token: user.token });
     }
 });
@@ -63,8 +59,7 @@ apiRouter.get('/posts', (_req, res) => {
 
 // SubmitPost
 apiRouter.post('/make-post', (req, res) => {
-    const postID = uuid.v4();
-    posts[postID] = req.body;
+    posts.push(req.body);
     res.status(204).send();
 });
 
@@ -82,13 +77,11 @@ apiRouter.post('/message', (req, res) => {
 // GetMessages
 apiRouter.get('/messages', (req, res) => {
     if (!req.query.username) {
-        return res.status(400).send({ msg: 'Invalid request: No username given' });
+        return res.status(400).send({msg: 'Invalid request: No username given'});
     }
     const userMessages = messages[req.query.username];
-    
     if (!userMessages) {
         return res.status(409).send({ msg: 'No Messages to Display' });
     }
     res.send(userMessages);
 });
-
