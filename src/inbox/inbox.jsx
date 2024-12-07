@@ -1,6 +1,7 @@
 import React from 'react';
 import './inbox.css';
-import {Link} from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
+const navigate = useNavigate();
 
 export function Inbox() {
     const [messages, setMessages] = React.useState([]);
@@ -33,7 +34,7 @@ export function Inbox() {
                 />
             ))}
             
-            <Link id="send_message_button" to="/send-message" className="btn btn-dark mb-3">Send a Message</Link>
+            <Button id="send_message_button" onclick={navigate('/send-message')} className="btn btn-dark mb-3">Send a Message</Button>
         </main>
     );
 }
