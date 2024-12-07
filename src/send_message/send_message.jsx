@@ -11,6 +11,16 @@ export function SendMessage() {
     
     const Submit = (e) => {
         e.preventDefault();
+        let date = new Date()
+        let dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        const message_obj = {
+            recipient: recipient,
+            sender: localStorage.getItem('userName'),
+            subject: subject,
+            messageContent: message,
+            dateSent: dateString,
+            timestamp: Date.now()
+        }
         // Placeholder for actually sending the message
         console.log("Message Sent:", { recipient, subject, message });
         setMessageSent(true);
