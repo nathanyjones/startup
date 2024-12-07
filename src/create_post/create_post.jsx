@@ -16,7 +16,8 @@ export function CreatePost() {
             title: title,
             content: postContent,
             datePosted: dateString,
-            numLikes: 0
+            numLikes: 0,
+            author: localStorage.getItem('userName')
         };
         const response = await fetch('/api/post', {
             method: 'POST',

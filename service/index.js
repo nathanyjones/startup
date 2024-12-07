@@ -59,7 +59,16 @@ apiRouter.get('/posts', (_req, res) => {
 
 // SubmitPost
 apiRouter.post('/make-post', (req, res) => {
+    const post = req.body;
+    post['id'] = uuid.v4();
     posts.push(req.body);
+    res.status(204).send();
+});
+
+// LikePost
+apiRouter.post('/like-post', (req, res) => {
+    const post = posts.find(post => post.id === req.body.postID);
+    post.numLikes = req.body.numLikes;
     res.status(204).send();
 });
 

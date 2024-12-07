@@ -15,7 +15,6 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
     }
     
     const loginOrCreate = async (endpoint) => {
-        e.preventDefault();
         const response = await fetch(endpoint, {
             method: 'post',
             body: JSON.stringify({username: localUserName, password: password}),
