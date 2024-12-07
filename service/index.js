@@ -65,6 +65,7 @@ apiRouter.post('/make-post', (req, res) => {
 
 apiRouter.post('/message', (req, res) => {
     const message = req.body.message;
+    message['id'] = uuid.v4();
     const user = message.recipient;
     if (!messages[user]) {
         messages[user] = [message];
@@ -73,6 +74,19 @@ apiRouter.post('/message', (req, res) => {
     }
     res.status(204).send();
 });
+
+apiRouter.post('/messages/reply', (req, res) => {
+    const { messageID, replyContent, replySender, replyRecipient } = req.body;
+    const userMessages = messages[replyRecipient];
+    const originalMessage = userMessages.find((message) => message.id === messageID);
+    const reply = {
+        replyID: uuid.v4(),
+        sender: replySender,
+        recipient: replyRecipient,
+        content: replyContent
+    };
+    originalMessage.replies.push(reply);
+})
 
 // GetMessages
 apiRouter.get('/messages', (req, res) => {

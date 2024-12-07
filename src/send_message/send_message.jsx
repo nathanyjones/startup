@@ -19,7 +19,8 @@ export function SendMessage() {
             subject: subject,
             messageContent: message,
             dateSent: dateString,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            replies: []
         }
         // Placeholder for actually sending the message
         console.log("Message Sent:", { recipient, subject, message });

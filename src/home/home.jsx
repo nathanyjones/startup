@@ -4,19 +4,47 @@ import './home.css';
 export function Home( {userName, loggedIn, onLoginChange} ) {
     const [localUserName, setLocalUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [displayError, setDisplayError] = React.useState(null);
     
+    async function loginUser() {
+        loginOrCreate(`/api/auth/login`);
+    }
+
+    async function createUser() {
+        loginOrCreate(`/api/auth/create`);
+    }
     
-    const login = (e) => {
+    const loginOrCreate = async (endpoint) => {
         e.preventDefault();
-        localStorage.setItem('userName', localUserName);
-        onLoginChange(localUserName, true);
+        const response = await fetch(endpoint, {
+            method: 'post',
+            body: JSON.stringify({username: localUserName, password: password}),
+            headers: { 'Content-type': 'application/json; charset=UTF-8' }
+        });
+        if (response?.status === 200) {
+            localStorage.setItem('userName', userName);
+            onLoginChange(localUserName, true);
+        } else {
+            const body = await response.json();
+            setDisplayError(`⚠ Error: ${body.msg}`);
+        }
     }
     
     const logout = (e) => {
         localStorage.removeItem('userName');
-        setLocalUsername(null);
-        setPassword(null);
-        onLoginChange(null, false);
+        setLocalUsername("");
+        setPassword("");
+
+        fetch(`/api/auth/logout`, {
+            method: 'delete',
+        })
+            .catch(() => {
+                // Logout failed. Assuming offline
+            })
+            .finally(() => {
+                localStorage.removeItem('userName');
+                onLoginChange(null, false);
+            });
     }
     
     return (
@@ -30,7 +58,7 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
             { !loggedIn && 
                 <section id="user-auth" className="container">
                 <h3 className="mt-4">Login or Create Account</h3>
-                <form id="login" method="get" onSubmit={ login } className="bg-secondary">
+                <form id="login" className="bg-secondary">
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input 
@@ -54,12 +82,15 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
                             onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <div className="d-flex justify-content-md-center">
-                        <button type="submit" className="btn btn-dark me-3">Login</button>
-                        <button type="submit" className="btn btn-dark">Create</button>
+                        <button className="btn btn-dark me-3" onClick={() => loginUser()} disabled={!localUserName || !password}>Login</button>
+                        <button className="btn btn-dark" onClick={() => createUser()} disabled={!localUserName || !password}>Create</button>
                     </div>
                 </form>
             </section> }
             {loggedIn && <button type="submit" onClick={logout} className="btn btn-dark">Logout</button>}
+
+            <p>{displayError}</p>
         </main>
+        
     );
 }

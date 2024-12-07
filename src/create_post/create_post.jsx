@@ -7,15 +7,22 @@ export function CreatePost() {
     const [postContent, setPostContent] = useState('');
     const navigate = useNavigate();
     
-    const submitPost = (e) => {
+    const submitPost = async (e) => {
         e.preventDefault();
         // Send post data to server to be rendered in View Posts
-        // Mock functionality for now...
-        localStorage.setItem('title', title);
-        localStorage.setItem('postContent', postContent);
         let date = new Date();
         let dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-        localStorage.setItem('date', dateString);
+        const post = {
+            title: title,
+            content: postContent,
+            datePosted: dateString,
+            numLikes: 0
+        };
+        const response = await fetch('/api/post', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(post),
+        });
         setTitle('')
         setPostContent('')
         navigate('/view-posts')
