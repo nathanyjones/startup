@@ -10,7 +10,8 @@ export function ViewPosts() {
             .then((response) => response.json())
             .then((posts) => {
                 setPosts(posts);
-            });
+            })
+            .catch((error) => console.error("Couldn't fetch posts from server.", error));
     }, []);
     
     return (

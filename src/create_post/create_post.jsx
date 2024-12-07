@@ -56,10 +56,6 @@ export function CreatePost() {
                             required 
                             onChange = {(e) => setPostContent(e.target.value)} />
                     </div>
-                    {/*<div className="mb-3">*/}
-                    {/*    <label htmlFor="tags" className="form-label">Tags:</label>*/}
-                    {/*    <input type="text" id="tags" name="tags" className="form-control" required placeholder="Relevant Tags" />*/}
-                    {/*</div>*/}
                     <div className="buttonHolder">
                         <button type="submit" className="btn btn-secondary">Submit your Post!</button>
                     </div>

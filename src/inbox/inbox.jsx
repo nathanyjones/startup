@@ -3,56 +3,63 @@ import './inbox.css';
 import {Link} from 'react-router-dom';
 
 export function Inbox() {
+    const [messages, setMessages] = React.useState([]);
+    
     React.useEffect(() => {
         fetch('/api/messages')
             .then((response) => response.json())
-            .then((posts) => {
-                setPosts(posts);
-            });
+            .then((messages) => {
+                setMessages(messages);
+            })
+            .catch((error) => console.error("Failed to retrieve messages", error));
     }, []);
 
     return (
         <main className="container-fluid bg-secondary">
             <h1 className="display-4 text-white py-4">Your Messages</h1>
-
-            <Message
-                fromUsername={'MangoEater2000'}
-                date={'2024-09-26'}
-                subject={'Dragon Story'}
-                incomingMessageContent={"I saw your post about the dragon story, and I thought it was a really good idea! I would like to use it as the plot of a children's book I am writing if that's okay with you?"}
-                currentReplies={[]}
-            />
-
-            <Message
-                fromUsername={'RedRockinRoller'}
-                date={'2024-09-25'}
-                subject={'Cooking App Idea'}
-                incomingMessageContent={"Hey, I really liked your idea for your cooking website. I have some web programming skills, so would you want to collaborate with me, and we can build it together?"}
-                currentReplies={["Yeah that sounds great! When do you want to start working on that?"]}
-            />
-
-    <div className="message container bg-dark rounded text-white p-3 mb-3">
-        <p className="mb"><em>New messages will appear here</em></p>
-    </div>
+            
+            <div className="message container bg-dark rounded text-white p-3 mb-3">
+                <p className="mb"><em>New messages will appear here</em></p>
+            </div>
+            
+            {messages.slice().reverse().map((message, index) => (
+                <Message
+                    fromUsername={message.sender}
+                    date={message.dateSent}
+                    subject={message.subject}
+                    incomingMessageContent={message.messageContent}
+                    currentReplies={message.replies}
+                    messageID={message.id}
+                />
+            ))}
             
             <Link id="send_message_button" to="/send-message" className="btn btn-dark mb-3">Send a Message</Link>
         </main>
     );
 }
 
-function Message({fromUsername, date, subject, incomingMessageContent, currentReplies}) {
+function Message({fromUsername, date, subject, incomingMessageContent, currentReplies, messageID}) {
     const [replyClicked, setReplyClicked] = React.useState(false);
     const [replyContent, setReplyContent] = React.useState('');
     const [replies, setReplies] = React.useState(currentReplies);
-    
-    const sendReply = (e) => {
-        e.preventDefault();
+
+    const sendReply = () => {
         console.log("Reply Sent");
-        setTimeout(() => {
-            setReplyClicked(false);
-            setReplies(replies.concat([replyContent]));
-            setReplyContent('');
-        }, 200);
+        fetch('/api/messages/reply', {
+            method: 'POST',
+            body: JSON.stringify({
+                messageID: messageID,
+                replyContent: replyContent,
+                replySender: localStorage.getItem('userName'),
+                replyRecipient: fromUsername
+            }),
+        })
+            .then(() => {
+                setReplyClicked(false);
+                setReplies(replies.push(replyContent));
+                setReplyContent('');
+            })
+            .catch((error) => console.error("Reply could not be sent.", error));
     }
 
     return (
@@ -70,7 +77,7 @@ function Message({fromUsername, date, subject, incomingMessageContent, currentRe
                 <button className="btn btn-light btn-sm" onClick={(e) => setReplyClicked(true)}>Reply</button>}
             {replyClicked &&
                 <>
-                    <form id="reply_form" onSubmit={sendReply} className="p-3">
+                    <form id="reply_form" className="p-3">
                         <div className="">
                             <label htmlFor="reply" className="form-label">Reply</label>
                             <textarea
@@ -87,8 +94,8 @@ function Message({fromUsername, date, subject, incomingMessageContent, currentRe
                         <button
                             className="btn btn-light btn-sm m-4" onClick={(e) => setReplyClicked(false)}>Cancel
                         </button>
-                        <button
-                            type="submit" className="btn btn-light btn-sm">Send
+                        <button 
+                            className="btn btn-light btn-sm" onClick={sendReply} disabled={!replyContent || !localStorage.getItem('userName')}>Send
                         </button>
                     </form>
                 </>

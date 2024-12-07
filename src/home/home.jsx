@@ -86,7 +86,7 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
                     </div>
                 </form>
             </section> }
-            {loggedIn && <button type="submit" onClick={logout} className="btn btn-dark">Logout</button>}
+            {loggedIn && <button onClick={logout} className="btn btn-dark">Logout</button>}
 
             <p>{displayError}</p>
         </main>
