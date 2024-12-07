@@ -3,6 +3,13 @@ import './inbox.css';
 import {Link} from 'react-router-dom';
 
 export function Inbox() {
+    React.useEffect(() => {
+        fetch('/api/messages')
+            .then((response) => response.json())
+            .then((posts) => {
+                setPosts(posts);
+            });
+    }, []);
 
     return (
         <main className="container-fluid bg-secondary">

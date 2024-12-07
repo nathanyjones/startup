@@ -72,6 +72,7 @@ apiRouter.post('/like-post', (req, res) => {
     res.status(204).send();
 });
 
+// SendMessage
 apiRouter.post('/message', (req, res) => {
     const message = req.body.message;
     message['id'] = uuid.v4();
@@ -84,6 +85,7 @@ apiRouter.post('/message', (req, res) => {
     res.status(204).send();
 });
 
+// ReplyToMessage
 apiRouter.post('/messages/reply', (req, res) => {
     const { messageID, replyContent, replySender, replyRecipient } = req.body;
     const userMessages = messages[replyRecipient];
@@ -99,12 +101,21 @@ apiRouter.post('/messages/reply', (req, res) => {
 
 // GetMessages
 apiRouter.get('/messages', (req, res) => {
-    if (!req.query.username) {
-        return res.status(400).send({msg: 'Invalid request: No username given'});
-    }
-    const userMessages = messages[req.query.username];
+    const username = req.body.username;
+    const userMessages = messages[req.body.username];
+    let date = new Date()
     if (!userMessages) {
-        return res.status(409).send({ msg: 'No Messages to Display' });
+        messages[username] = [{
+            id: uuid.v4(),
+            recipient: username,
+            sender: "Admin",
+            subject: "Welcome!",
+            messageContent: "Thank you for joining IdeaShare. If you have any questions or concerns, please don't hesitate to contact us at" +
+                "ideashare12345@gmail.com",
+            dateSent: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+            timestamp: Date.now(),
+            replies: []
+        }]
     }
     res.send(userMessages);
 });
