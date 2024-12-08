@@ -8,8 +8,8 @@ export function CreatePost() {
     const navigate = useNavigate();
     
     const submitPost = async (e) => {
-        e.preventDefault();
         // Send post data to server to be rendered in View Posts
+        e.preventDefault()
         let date = new Date();
         let dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         const post = {
@@ -19,21 +19,23 @@ export function CreatePost() {
             numLikes: 0,
             author: localStorage.getItem('userName')
         };
-        const response = await fetch('/api/post', {
+        const response = await fetch('/api/create-post', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(post),
-        });
-        setTitle('')
-        setPostContent('')
-        navigate('/view-posts')
+        })
+        if (response.ok) {
+            setTitle('');
+            setPostContent('');
+            navigate('/view-posts');
+        }
     }
     
     return (
         <>
             <main className="bg-secondary container-fluid py-5">
                 <h1 className="display-4 text-white">Post Your Idea!</h1>
-                <form method="post" onSubmit={submitPost} className="bg-dark p-4 rounded shadow text-white">
+                <form className="bg-dark p-4 rounded shadow text-white" onSubmit={submitPost}>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Post Title:</label>
                         <input 
@@ -57,7 +59,9 @@ export function CreatePost() {
                             onChange = {(e) => setPostContent(e.target.value)} />
                     </div>
                     <div className="buttonHolder">
-                        <button type="submit" className="btn btn-secondary">Submit your Post!</button>
+                        <button type={'submit'}
+                                className="btn btn-secondary"
+                                disabled={!localStorage.getItem('userName') || !title || !postContent}>Submit your Post!</button>
                     </div>
                 </form>
             </main>

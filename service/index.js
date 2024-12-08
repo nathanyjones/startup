@@ -1,17 +1,19 @@
 const express = require('express');
-const app = express();
 const uuid = require('uuid');
+const app = express();
+
+let users = {};
+let messages = {};
+let posts = [];
+
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.use(express.json());
 
-let users = {};
-let posts = [];
-let messages = {};
+app.use(express.static('public'));
 
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
-
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
@@ -19,14 +21,17 @@ app.listen(port, () => {
 
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
-    const user = users[req.body.username];
+    console.log("in the thing")
+    const user = users[req.body.username]
+    console.log('user = ', user);
     if (user) {
+        console.log('existing user')
         res.status(409).send({ msg: 'Existing user' });
     } else {
         const user = { username: req.body.username, password: req.body.password, token: uuid.v4() };
         users[user.username] = user;
-        
-        res.send({ token: user.token });
+        console.log("user.token")
+        res.status(200).send({ token: user.token });
     }
 });
 
@@ -36,7 +41,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (user) {
         if (req.body.password === user.password) {
             user.token = uuid.v4();
-            res.send({ token: user.token });
+            res.status(200).send({ token: user.token });
             return;
         }
     }
@@ -58,7 +63,7 @@ apiRouter.get('/posts', (_req, res) => {
 });
 
 // SubmitPost
-apiRouter.post('/make-post', (req, res) => {
+apiRouter.post('/create-post', (req, res) => {
     const post = req.body;
     post['id'] = uuid.v4();
     posts.push(req.body);
@@ -75,13 +80,17 @@ apiRouter.post('/like-post', (req, res) => {
 // SendMessage
 apiRouter.post('/message', (req, res) => {
     const message = req.body.message;
-    message['id'] = uuid.v4();
-    const user = message.recipient;
-    if (!messages[user]) {
-        messages[user] = [message];
-    } else {
-        messages[user].push(message);
+    const recipient = message.recipient;
+    if (!Object.keys(users).includes(recipient)) {
+        console.log("invalid user");
+        res.status(404).send({ msg: 'User not found' });
+        return
     }
+    console.log(message);
+    message['id'] = uuid.v4();
+    console.log(recipient);
+    messages[recipient].push(message);
+    console.log(messages[recipient]);
     res.status(204).send();
 });
 
@@ -101,21 +110,21 @@ apiRouter.post('/messages/reply', (req, res) => {
 
 // GetMessages
 apiRouter.get('/messages', (req, res) => {
-    const username = req.body.username;
-    const userMessages = messages[req.body.username];
-    let date = new Date()
-    if (!userMessages) {
-        messages[username] = [{
+    const username = req.query.username;
+    let date = new Date();
+    if (!messages[username]) {
+        messages[username] = [];
+        const defaultMessage = {
             id: uuid.v4(),
             recipient: username,
             sender: "Admin",
             subject: "Welcome!",
-            messageContent: "Thank you for joining IdeaShare. If you have any questions or concerns, please don't hesitate to contact us at" +
-                "ideashare12345@gmail.com",
+            messageContent: "Thank you for joining IdeaShare. If you have any questions or concerns, please don't hesitate to contact us at ideashare12345@gmail.com",
             dateSent: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
             timestamp: Date.now(),
             replies: []
-        }]
+        }
+        messages[username].push(defaultMessage);
     }
-    res.send(userMessages);
+    res.send(messages[username]);
 });

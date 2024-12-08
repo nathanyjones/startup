@@ -9,23 +9,33 @@ export function SendMessage() {
     const [message, setMessage] = useState('');
     const [messageSent, setMessageSent] = useState(false);
     
-    const Submit = (e) => {
+    const sendMessage = (e) => {
         e.preventDefault();
         let date = new Date()
         let dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         const message_obj = {
-            recipient: recipient,
-            sender: localStorage.getItem('userName'),
-            subject: subject,
-            messageContent: message,
-            dateSent: dateString,
-            timestamp: Date.now(),
-            replies: []
+            message: {
+                recipient: recipient,
+                sender: localStorage.getItem('userName'),
+                subject: subject,
+                messageContent: message,
+                dateSent: dateString,
+                timestamp: Date.now(),
+                replies: []
+            }
         }
-        // Placeholder for actually sending the message
-        console.log("Message Sent:", { recipient, subject, message });
-        setMessageSent(true);
-        localStorage.removeItem('recipient');
+        console.log(message_obj);
+        fetch('/api/message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(message_obj),
+        })
+            .then(() => {
+                console.log("Message Sent:", { recipient, subject, message })
+                setMessageSent(true);
+            })
+            .catch((error) => console.error("Message unable to send.", error))
+            .finally(() => localStorage.setItem('recipient', ''));
     };
     
     const createNewForm = () => {
@@ -46,17 +56,17 @@ export function SendMessage() {
                 setRecipient={setRecipient}
                 setSubject={setSubject}
                 setMessage={setMessage}
-                onSubmit={Submit}
+                sendMessage={sendMessage}
             />
         );
     }
 }
 
-function NewMessageForm({recipient, subject, message, setRecipient, setSubject, setMessage, onSubmit}) {
+function NewMessageForm({recipient, subject, message, setRecipient, setSubject, setMessage, sendMessage}) {
     return (
         <main className="bg-secondary bg-custom">
             <h1 className="display-4 text-white py-2">Send a Message</h1>
-            <form id="message_form" onSubmit={onSubmit} className="bg-dark p-4 rounded shadow text-white">
+            <form id="message_form" onSubmit={sendMessage} className="bg-dark p-4 rounded shadow text-white">
                 <div className="mb-3">
                     <label htmlFor="recipient" className="form-label">Recipient</label>
                     <input
@@ -96,7 +106,7 @@ function NewMessageForm({recipient, subject, message, setRecipient, setSubject, 
                     />
                 </div>
                 <div className="buttonHolder">
-                    <button type="submit" className="btn btn-secondary">Send Message</button>
+                    <button type={'submit'} className="btn btn-secondary" >Send Message</button>
                 </div>
             </form>
         </main>

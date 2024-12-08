@@ -21,6 +21,7 @@ export function ViewPosts() {
                     <div className="row">
                         {posts.slice().reverse().map((post, index) => (
                             <PostTemplate
+                                key={post.id}
                                 postID={post.id}
                                 title={post.title}
                                 author={post.author}
