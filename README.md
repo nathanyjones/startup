@@ -81,4 +81,14 @@ For this deliverable, I added JavaScript to implement and/or mock all functional
   - [x] **Websocket** - I used local storage, useNavigate, and useLocation hooks to mock the functionality of creating posts, sending messages, replying to messages, etc. These will all be replaced/added onto with WebSocket.
   - [x] **Application Logic** - Pressing the 'like' button increases the number of likes for a post. Data like userName, message recipient, etc. are transferred between pages for use.
 - [x] **React Router** - Added react routing between home, view posts, send message, inbox, and create post pages. 
-- [x] **Reach Hooks** - Implemented multiple useState hooks to store and update variables. I also used the useLocation hook to transfer data between pages, and the useNavigate hook for navigation between pages using buttons. 
+- [x] **Reach Hooks** - Implemented multiple useState hooks to store and update variables. I also used the useLocation hook to transfer data between pages, and the useNavigate hook for navigation between pages using buttons.
+
+## Service deliverable
+
+For this deliverable, I added backend endpoints that receives and updates user data, posts, messages, and elements within those objects.
+
+- [x] **Node.js/Express HTTP service** - Done
+- [x] **Static middleware for frontend** - Done
+- [x] **Calls to third party endpoints** - Gets a random quote from a third party service, and displays it on the homepage. 
+- [x] **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for submitting posts, sending messages to other users, replying to messages, liking posts, etc.
+- [x] **Frontend calls service endpoints** - Using the fetch function, my frontend calls the service endpoints listed above.
