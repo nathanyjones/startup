@@ -78,8 +78,8 @@ secureApiRouter.get('/posts', async (_req, res) => {
 secureApiRouter.post('/create-post', async (req, res) => {
     const post = req.body;
     post['id'] = uuid.v4();
-    await DB.addPost();
-    res.status(204).send();
+    await DB.addPost(post);
+    res.status(200).send({msg: 'Post successfully added'});
 });
 
 // LikePost

@@ -35,7 +35,7 @@ export function CreatePost() {
         <>
             <main className="bg-secondary container-fluid py-5">
                 <h1 className="display-4 text-white">Post Your Idea!</h1>
-                <form className="bg-dark p-4 rounded shadow text-white" onSubmit={submitPost}>
+                <form onSubmit={submitPost} className="bg-dark p-4 rounded shadow text-white">
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Post Title:</label>
                         <input 
