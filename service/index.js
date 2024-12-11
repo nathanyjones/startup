@@ -7,30 +7,18 @@ const uuid = require('uuid');
 
 const authCookieName = 'token';
 
-// The service port may be set on the command line
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
-// JSON body parsing using built-in middleware
 app.use(express.json());
 
-// Use the cookie parser middleware for tracking authentication tokens
 app.use(cookieParser());
 
-// Serve up the applications static content
 app.use(express.static('public'));
 
-// Trust headers that are forwarded from the proxy so we can determine IP addresses
 app.set('trust proxy', true);
 
-// Router for service endpoints
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
-
-// let users = {};
-// let messages = {};
-// let posts = [];
-
-
 
 // CreateAuth token for a new user
 apiRouter.post('/auth/create', async (req, res) => {
@@ -38,7 +26,7 @@ apiRouter.post('/auth/create', async (req, res) => {
         res.status(409).send({ msg: 'Existing user' });
     } else {
         const user = await DB.createUser(req.body.username, req.body.password);
-        DB.setAuthCookie(res, user.token);
+        setAuthCookie(res, user.token);
         res.send({
             id: user._id,
         });
@@ -143,49 +131,10 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-
-
-
-
-
-
-
-
-
-// CreateAuth a new user
-apiRouter.post('/auth/create', async (req, res) => {
-    console.log("in the thing")
-    const user = users[req.body.username]
-    console.log('user = ', user);
-    if (user) {
-        console.log('existing user')
-        res.status(409).send({ msg: 'Existing user' });
-    } else {
-        const user = { username: req.body.username, password: req.body.password, token: uuid.v4() };
-        users[user.username] = user;
-        console.log("user.token")
-        res.status(200).send({ token: user.token });
-    }
-});
-
-// GetAuth login an existing user
-apiRouter.post('/auth/login', async (req, res) => {
-    const user = users[req.body.username];
-    if (user) {
-        if (req.body.password === user.password) {
-            user.token = uuid.v4();
-            res.status(200).send({ token: user.token });
-            return;
-        }
-    }
-    res.status(401).send({ msg: 'Unauthorized' });
-});
-
-// DeleteAuth logout a user
-apiRouter.delete('/auth/logout', (req, res) => {
-    const user = Object.values(users).find((u) => u.token === req.body.token);
-    if (user) {
-        delete user.token;
-    }
-    res.status(204).send();
-});
+function setAuthCookie(res, authToken) {
+    res.cookie(authCookieName, authToken, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+    });
+}

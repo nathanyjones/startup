@@ -55,8 +55,13 @@ async function likePost(id, numLikes) {
 }
 
 async function getUserMessages(username) {
-    const messages = await messageCollection.find({recipient: username}).toArray();
-    if (!messages) {
+    const messages = await messageCollection.find({
+        $or: [
+            {recipient: username},
+            {sender: username},
+        ]
+    }).toArray();
+    if (messages.length === 0) {
         let date = new Date();
         const defaultMessage = {
             id: uuid.v4(),
@@ -100,32 +105,6 @@ async function sendReply(messageID, replyContent, replySender, replyRecipient) {
     );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    client.close();
-});
-
-function setAuthCookie(res, authToken) {
-    res.cookie(authCookieName, authToken, {
-        secure: true,
-        httpOnly: true,
-        sameSite: 'strict',
-    });
-}
 
 module.exports = {
     getUser,
