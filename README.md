@@ -81,7 +81,7 @@ For this deliverable, I added JavaScript to implement and/or mock all functional
   - [x] **Websocket** - I used local storage, useNavigate, and useLocation hooks to mock the functionality of creating posts, sending messages, replying to messages, etc. These will all be replaced/added onto with WebSocket.
   - [x] **Application Logic** - Pressing the 'like' button increases the number of likes for a post. Data like userName, message recipient, etc. are transferred between pages for use.
 - [x] **React Router** - Added react routing between home, view posts, send message, inbox, and create post pages. 
-- [x] **Reach Hooks** - Implemented multiple useState hooks to store and update variables. I also used the useLocation hook to transfer data between pages, and the useNavigate hook for navigation between pages using buttons.
+- [x] **React Hooks** - Implemented multiple useState hooks to store and update variables. I also used the useLocation hook to transfer data between pages, and the useNavigate hook for navigation between pages using buttons.
 
 ## Service deliverable
 
@@ -92,3 +92,14 @@ For this deliverable, I added backend endpoints that receives and updates user d
 - [x] **Calls to third party endpoints** - Gets a random quote from a third party service, and displays it on the homepage. 
 - [x] **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for submitting posts, sending messages to other users, replying to messages, liking posts, etc.
 - [x] **Frontend calls service endpoints** - Using the fetch function, my frontend calls the service endpoints listed above.
+
+## DB/Login Deliverable
+
+For this deliverable, I integrated mongoDB to store user information, posts, messages, and other data in a database. I also integrated secure / encrypted login capabilities. 
+
+- [x] **MongoDB Atlas database created** - Done
+- [x] **Stores data in MongoDB** - Stores a variety of application data (messages, posts, user data).
+- [x] **User registration** - Allows for the creation of a new account in the database.
+- [x] **Existing user** - Stores posts, messages, sent messages, etc. under the same user if the user already exists. Allows a preexisting user to login with a password, and stores data for that user in the database.
+- [x] **Use MongoDB to store and retrieve credentials** - Stores user and their associated posts, messages etc., which is retrieved from the database in other parts of the application.
+- [x] **Restricts functionality** - Both the backend and frontend restrict functionality if the user is not authenticated. A user cannot view posts, make posts, view messages, or send messages until logged in.
