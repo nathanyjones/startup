@@ -8,6 +8,7 @@ const client = new MongoClient(url);
 const db = client.db('simon');
 const userCollection = db.collection('user');
 const postCollection = db.collection('post');
+const messageCollection = db.collection('message');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -46,6 +47,61 @@ async function getPosts() {
     return posts;
 }
 
+async function likePost(id, numLikes) {
+    await postCollection.updateOne(
+        {id: id},
+        {$set: {numLikes: numLikes}}
+    );
+}
+
+async function getUserMessages(username) {
+    const messages = await messageCollection.find({recipient: username}).toArray();
+    if (!messages) {
+        let date = new Date();
+        const defaultMessage = {
+            id: uuid.v4(),
+            recipient: username,
+            sender: "Admin",
+            subject: "Welcome!",
+            messageContent: "Thank you for joining IdeaShare. If you have any questions or concerns, please don't hesitate to contact us at ideashare12345@gmail.com",
+            dateSent: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+            timestamp: Date.now(),
+            replies: []
+        };
+        await messageCollection.insertOne(defaultMessage);
+        return [defaultMessage];
+    }
+    return messages;
+}
+
+async function sendMessage(message) {
+    const recipient = await userCollection.findOne({ username: message.recipient });
+    if (!recipient) {
+        throw new Error('User not found');
+    }
+    message.id = uuid.v4();
+    await messageCollection.insertOne(message);
+}
+
+async function sendReply(messageID, replyContent, replySender, replyRecipient) {
+    const originalMessage = await messageCollection.findOne({id: messageID, recipient: replyRecipient});
+    if (!originalMessage) {
+        throw new Error('Original message not found');
+    }
+    const reply = {
+        replyID: uuid.v4(),
+        sender: replySender,
+        recipient: replyRecipient,
+        content: replyContent
+    };
+    await messageCollection.updateOne(
+        {id: messageID, recipient: replyRecipient},
+        {$push: {replies: reply}}
+    );
+}
+
+
+
 
 
 
@@ -77,4 +133,8 @@ module.exports = {
     createUser,
     addPost,
     getPosts,
+    likePost,
+    sendMessage,
+    getUserMessages,
+    sendReply,
 };

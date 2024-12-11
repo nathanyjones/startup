@@ -88,67 +88,55 @@ secureApiRouter.get('/posts', async (_req, res) => {
 secureApiRouter.post('/create-post', async (req, res) => {
     const post = req.body;
     post['id'] = uuid.v4();
-    posts.push(req.body);
+    await DB.addPost();
     res.status(204).send();
 });
 
 // LikePost
-apiRouter.post('/like-post', (req, res) => {
-    const post = posts.find(post => post.id === req.body.postID);
-    post.numLikes = req.body.numLikes;
+apiRouter.post('/like-post', async (req, res) => {
+    await DB.likePost(req.body.postID, req.body.numLikes);
     res.status(204).send();
 });
 
 // SendMessage
-apiRouter.post('/message', (req, res) => {
+apiRouter.post('/message', async (req, res) => {
     const message = req.body.message;
-    const recipient = message.recipient;
-    if (!Object.keys(users).includes(recipient)) {
-        console.log("invalid user");
-        res.status(404).send({ msg: 'User not found' });
-        return
+    try {
+        await DB.sendMessage(message);
+        res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        if (error.message === 'User not found') {
+            res.status(404).send({msg: 'User not found'});
+        } else {
+            res.status(500).send({msg: 'Internal server error'});
+        }
     }
-    console.log(message);
-    message['id'] = uuid.v4();
-    console.log(recipient);
-    messages[recipient].push(message);
-    console.log(messages[recipient]);
-    res.status(204).send();
 });
 
 // ReplyToMessage
-apiRouter.post('/messages/reply', (req, res) => {
+apiRouter.post('/messages/reply', async (req, res) => {
     const { messageID, replyContent, replySender, replyRecipient } = req.body;
-    const userMessages = messages[replyRecipient];
-    const originalMessage = userMessages.find((message) => message.id === messageID);
-    const reply = {
-        replyID: uuid.v4(),
-        sender: replySender,
-        recipient: replyRecipient,
-        content: replyContent
-    };
-    originalMessage.replies.push(reply);
-})
+    try {
+        await DB.sendReply(messageID, replyContent, replySender, replyRecipient);
+    } catch (error) {
+        console.error(error);
+        if (error.message === 'Original message not found') {
+            res.status(404).send({msg: 'Message not found'})
+        } else {
+            res.status(500).send({msg: 'Internal server error'});
+        }
+    }
+});
 
 // GetMessages
-apiRouter.get('/messages', (req, res) => {
+apiRouter.get('/messages', async (req, res) => {
     const username = req.query.username;
-    let date = new Date();
-    if (!messages[username]) {
-        messages[username] = [];
-        const defaultMessage = {
-            id: uuid.v4(),
-            recipient: username,
-            sender: "Admin",
-            subject: "Welcome!",
-            messageContent: "Thank you for joining IdeaShare. If you have any questions or concerns, please don't hesitate to contact us at ideashare12345@gmail.com",
-            dateSent: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
-            timestamp: Date.now(),
-            replies: []
-        }
-        messages[username].push(defaultMessage);
-    }
+    
     res.send(messages[username]);
+    
+    const userMessages = await DB.getUserMessages(username)
+    res.send(userMessages)
 });
 
 app.listen(port, () => {
