@@ -26,22 +26,19 @@ app.set('trust proxy', true);
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-let users = {};
-let messages = {};
-let posts = [];
+// let users = {};
+// let messages = {};
+// let posts = [];
 
 
 
 // CreateAuth token for a new user
 apiRouter.post('/auth/create', async (req, res) => {
-    if (await DB.getUser(req.body.email)) {
+    if (await DB.getUser(req.body.username)) {
         res.status(409).send({ msg: 'Existing user' });
     } else {
-        const user = await DB.createUser(req.body.email, req.body.password);
-
-        // Set the cookie
+        const user = await DB.createUser(req.body.username, req.body.password);
         setAuthCookie(res, user.token);
-
         res.send({
             id: user._id,
         });
@@ -50,7 +47,7 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 // GetAuth token for the provided credentials
 apiRouter.post('/auth/login', async (req, res) => {
-    const user = await DB.getUser(req.body.email);
+    const user = await DB.getUser(req.body.username);
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
             setAuthCookie(res, user.token);
@@ -67,6 +64,9 @@ apiRouter.delete('/auth/logout', (_req, res) => {
     res.status(204).end();
 });
 
+// secureApiRouter verifies credentials for endpoints
+const secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
 
 
 
@@ -74,9 +74,6 @@ apiRouter.delete('/auth/logout', (_req, res) => {
 
 
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
 
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
@@ -186,4 +183,8 @@ apiRouter.get('/messages', (req, res) => {
         messages[username].push(defaultMessage);
     }
     res.send(messages[username]);
+});
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
 });
