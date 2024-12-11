@@ -23,7 +23,7 @@ app.use(`/api`, apiRouter);
 // CreateAuth token for a new user
 apiRouter.post('/auth/create', async (req, res) => {
     if (await DB.getUser(req.body.username)) {
-        res.status(409).send({ msg: 'Existing user' });
+        res.status(409).send({ msg: 'Username already in use' });
     } else {
         const user = await DB.createUser(req.body.username, req.body.password);
         setAuthCookie(res, user.token);
@@ -39,11 +39,13 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
             setAuthCookie(res, user.token);
-            res.send({ id: user._id });
-            return;
+            res.send({id: user._id});
+        } else {
+            res.status(401).send({msg: 'Unauthorized: Incorrect Password'});
         }
+    } else {
+        res.status(404).send({msg: 'User not found'});
     }
-    res.status(401).send({ msg: 'Unauthorized' });
 });
 
 // DeleteAuth token if stored in cookie
@@ -120,17 +122,21 @@ apiRouter.post('/messages/reply', async (req, res) => {
 // GetMessages
 apiRouter.get('/messages', async (req, res) => {
     const username = req.query.username;
-    
-    res.send(messages[username]);
-    
-    const userMessages = await DB.getUserMessages(username)
-    res.send(userMessages)
+    try {
+        const userMessages = await DB.getUserMessages(username);
+        res.send(userMessages);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({msg: 'Internal server error'})
+    }
 });
 
+// Listening on port [4000]
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
+// SetAuthorizationCookie
 function setAuthCookie(res, authToken) {
     res.cookie(authCookieName, authToken, {
         secure: true,

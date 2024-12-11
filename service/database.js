@@ -5,7 +5,7 @@ const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('simon');
+const db = client.db('ideashare');
 const userCollection = db.collection('user');
 const postCollection = db.collection('post');
 const messageCollection = db.collection('message');
@@ -27,10 +27,10 @@ function getUserByToken(token) {
     return userCollection.findOne({ token: token });
 }
 
-async function createUser(email, password) {
+async function createUser(username, password) {
     const passwordHash = await bcrypt.hash(password, 10);
     const user = {
-        email: email,
+        username: username,
         password: passwordHash,
         token: uuid.v4(),
     };

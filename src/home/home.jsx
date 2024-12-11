@@ -34,17 +34,14 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
                 body: JSON.stringify({username: localUserName, password: password}),
                 headers: { 'Content-type': 'application/json; charset=UTF-8' }
             });
-            
-            console.log(response)
-
             if (response.status === 200) {
                 localStorage.setItem('userName', localUserName);
                 console.log("Successfully logged in or created an account.")
                 onLoginChange(localUserName, true);
                 setDisplayError(null);
             } else {
-                setDisplayError('Login failed');
-                console.log("Failed to log in or create account")
+                const body = await response.json();
+                setDisplayError(body.msg);
             }
         } catch (error) {
             console.log(error)
@@ -52,7 +49,7 @@ export function Home( {userName, loggedIn, onLoginChange} ) {
         }
     }
     
-    const logout = (e) => {
+    function logout() {
         setLocalUsername("");
         setPassword("");
 
