@@ -1,19 +1,78 @@
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 const express = require('express');
-const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
+const uuid = require('uuid');
+
+const authCookieName = 'token';
+
+// The service port may be set on the command line
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
+
+// JSON body parsing using built-in middleware
+app.use(express.json());
+
+// Use the cookie parser middleware for tracking authentication tokens
+app.use(cookieParser());
+
+// Serve up the applications static content
+app.use(express.static('public'));
+
+// Trust headers that are forwarded from the proxy so we can determine IP addresses
+app.set('trust proxy', true);
+
+// Router for service endpoints
+const apiRouter = express.Router();
+app.use(`/api`, apiRouter);
 
 let users = {};
 let messages = {};
 let posts = [];
 
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
-app.use(express.json());
 
-app.use(express.static('public'));
+// CreateAuth token for a new user
+apiRouter.post('/auth/create', async (req, res) => {
+    if (await DB.getUser(req.body.email)) {
+        res.status(409).send({ msg: 'Existing user' });
+    } else {
+        const user = await DB.createUser(req.body.email, req.body.password);
 
-var apiRouter = express.Router();
-app.use(`/api`, apiRouter);
+        // Set the cookie
+        setAuthCookie(res, user.token);
+
+        res.send({
+            id: user._id,
+        });
+    }
+});
+
+// GetAuth token for the provided credentials
+apiRouter.post('/auth/login', async (req, res) => {
+    const user = await DB.getUser(req.body.email);
+    if (user) {
+        if (await bcrypt.compare(req.body.password, user.password)) {
+            setAuthCookie(res, user.token);
+            res.send({ id: user._id });
+            return;
+        }
+    }
+    res.status(401).send({ msg: 'Unauthorized' });
+});
+
+// DeleteAuth token if stored in cookie
+apiRouter.delete('/auth/logout', (_req, res) => {
+    res.clearCookie(authCookieName);
+    res.status(204).end();
+});
+
+
+
+
+
+
+
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
