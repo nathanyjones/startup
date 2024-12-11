@@ -38,18 +38,19 @@ async function createUser(email, password) {
 }
 
 async function addPost(post) {
-    return postCollection.insertOne(post);
+    await postCollection.insertOne(post);
 }
 
-function getPosts() {
-    const query = { post: { $gt: 0, $lt: 900 } };
-    const options = {
-        sort: { score: -1 },
-        limit: 10,
-    };
-    const cursor = scoreCollection.find(query, options);
-    return cursor.toArray();
+async function getPosts() {
+    const posts = await postCollection.find().toArray();
+    return posts;
 }
+
+
+
+
+
+
 
 
 
@@ -69,3 +70,11 @@ function setAuthCookie(res, authToken) {
         sameSite: 'strict',
     });
 }
+
+module.exports = {
+    getUser,
+    getUserByToken,
+    createUser,
+    addPost,
+    getPosts,
+};
