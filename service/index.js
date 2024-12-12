@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const DB = require('./database.js');
 const uuid = require('uuid');
+const { likeDisplay } = require('./likeDisplay.js');
 
 const authCookieName = 'token';
 
@@ -131,11 +132,6 @@ apiRouter.get('/messages', async (req, res) => {
     }
 });
 
-// Listening on port [4000]
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
-
 // SetAuthorizationCookie
 function setAuthCookie(res, authToken) {
     res.cookie(authCookieName, authToken, {
@@ -144,3 +140,9 @@ function setAuthCookie(res, authToken) {
         sameSite: 'strict',
     });
 }
+
+const httpService = app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+});
+
+likeDisplay(httpService);

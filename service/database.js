@@ -47,6 +47,11 @@ async function getPosts() {
     return posts;
 }
 
+async function getPostById(id) {
+    const post = await postCollection.find({id: id});
+    return post;
+}
+
 async function likePost(id, numLikes) {
     await postCollection.updateOne(
         {id: id},
@@ -116,4 +121,5 @@ module.exports = {
     sendMessage,
     getUserMessages,
     sendReply,
+    getPostById,
 };

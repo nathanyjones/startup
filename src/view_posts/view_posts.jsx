@@ -4,6 +4,10 @@ import './posts.css';
 
 export function ViewPosts() {
     const [posts, setPosts] = React.useState([]);
+    
+    let port = window.location.port;
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    const socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
 
     React.useEffect(() => {
         fetch('/api/posts')
@@ -26,8 +30,9 @@ export function ViewPosts() {
                                 title={post.title}
                                 author={post.author}
                                 content={post.content}
-                                datePosted = {post.datePosted}
-                                numLikes = {post.numLikes}
+                                datePosted={post.datePosted}
+                                numLikes={post.numLikes}
+                                socket={socket}
                             />
                         ))}
                     </div>
@@ -35,7 +40,7 @@ export function ViewPosts() {
             </main>
     );
 }
-function PostTemplate( {postID, title, author, content, datePosted, numLikes, liked=false} ) {
+function PostTemplate( {postID, title, author, content, datePosted, numLikes, socket, liked=false} ) {
     const [likePressed, setLikePressed] = React.useState(liked);
     const [localNumLikes, setLocalNumLikes] = React.useState(numLikes);
     
@@ -45,18 +50,11 @@ function PostTemplate( {postID, title, author, content, datePosted, numLikes, li
         const updatedLikes = likePressed ? localNumLikes - 1 : localNumLikes + 1;
         setLocalNumLikes(updatedLikes);
         setLikePressed(!likePressed)
-        fetch(`/api/like-post`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                postID: postID,
-                numLikes: updatedLikes,
-            }),
-        })
-            .then(() => console.log("Post like count successfully updated to " + updatedLikes + "."))
-            .catch(() => console.log("Error: Post like count failed to update."));
+        socket.send(JSON.stringify({
+            type: 'likePost',
+            postId: postID,
+            numLikes: updatedLikes
+        }));
     }
     
     return (
