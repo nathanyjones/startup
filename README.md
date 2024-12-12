@@ -109,7 +109,7 @@ For this deliverable, I integrated mongoDB to store user information, posts, mes
 For this deliverable I attempted to use webSocket to update the votes on the frontend in realtime.
 
 - [x] **Backend listens for WebSocket connection** - Done - My websocket integrates with the service to start a websocket connection.
-- [x] **Frontend makes WebSocket connection** - Partially Done - The connection between the frontend and backend is successfully being made, I just haven't figured out how to update the number of likes via this connection.
+- [x] **Frontend makes WebSocket connection** - Done - The websocket connection between the frontend and backend is successfully being made. (I just haven't fully figured out how to update the number of likes via this connection).
 - [ ] **Data sent over WebSocket connection** - Not done. Actually unsure if this is working. I think it's almost completed, but I didn't have time to finish debugging before the deadline.
 - [ ] **WebSocket data displayed** - Not done. Again, couldn't get this working in time :(
 - [x] **All Visible Elements Working** - Everything works as I intended for my IdeaShare application. Although the likes do not update in real time, that was never an intended feature for the application. Likes still update in the database, users can post, send messages, reply to messages, etc.
