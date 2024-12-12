@@ -84,13 +84,13 @@ secureApiRouter.post('/create-post', async (req, res) => {
 });
 
 // LikePost
-apiRouter.post('/like-post', async (req, res) => {
+secureApiRouter.post('/like-post', async (req, res) => {
     await DB.likePost(req.body.postID, req.body.numLikes);
     res.status(204).send();
 });
 
 // SendMessage
-apiRouter.post('/message', async (req, res) => {
+secureApiRouter.post('/message', async (req, res) => {
     const message = req.body.message;
     try {
         await DB.sendMessage(message);
@@ -106,7 +106,7 @@ apiRouter.post('/message', async (req, res) => {
 });
 
 // ReplyToMessage
-apiRouter.post('/messages/reply', async (req, res) => {
+secureApiRouter.post('/messages/reply', async (req, res) => {
     const { messageID, replyContent, replySender, replyRecipient } = req.body;
     try {
         await DB.sendReply(messageID, replyContent, replySender, replyRecipient);
@@ -121,7 +121,7 @@ apiRouter.post('/messages/reply', async (req, res) => {
 });
 
 // GetMessages
-apiRouter.get('/messages', async (req, res) => {
+secureApiRouter.get('/messages', async (req, res) => {
     const username = req.query.username;
     try {
         const userMessages = await DB.getUserMessages(username);
@@ -140,6 +140,10 @@ function setAuthCookie(res, authToken) {
         sameSite: 'strict',
     });
 }
+
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+});
 
 const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);

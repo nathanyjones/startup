@@ -39,6 +39,7 @@ async function createUser(username, password) {
 }
 
 async function addPost(post) {
+    post.id = uuid.v4();
     await postCollection.insertOne(post);
 }
 

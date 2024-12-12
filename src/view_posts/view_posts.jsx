@@ -46,15 +46,25 @@ function PostTemplate( {postID, title, author, content, datePosted, numLikes, so
     
     const navigate = useNavigate()
     
-    const pressLike = (postID) => {
+    const pressLike = async (postID) => {
         const updatedLikes = likePressed ? localNumLikes - 1 : localNumLikes + 1;
         setLocalNumLikes(updatedLikes);
         setLikePressed(!likePressed)
-        socket.send(JSON.stringify({
-            type: 'likePost',
-            postId: postID,
-            numLikes: updatedLikes
-        }));
+        await fetch('/api/like-post', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                postID: postID,
+                numLikes: updatedLikes,
+            }),
+        })
+            .then(() => console.log("Likes updated successfully to ", updatedLikes))
+            .catch(() => console.log("Uh oh. Likes not updated successfully for ", postID));
+        // socket.send(JSON.stringify({
+        //     type: 'likePost',
+        //     postId: postID,
+        //     numLikes: updatedLikes
+        // }));
     }
     
     return (

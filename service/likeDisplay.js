@@ -1,5 +1,6 @@
 const { WebSocketServer } = require('ws');
 const uuid = require('uuid');
+const DB = require('./database.js');
 
 async function likeDisplay(httpServer) {
     const wss = new WebSocketServer({ noServer: true });
