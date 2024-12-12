@@ -1,6 +1,7 @@
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const express = require('express');
+const { WebSocketServer } = require('ws');
 const app = express();
 const DB = require('./database.js');
 const uuid = require('uuid');
@@ -11,11 +12,8 @@ const authCookieName = 'token';
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
-
 app.use(cookieParser());
-
 app.use(express.static('public'));
-
 app.set('trust proxy', true);
 
 const apiRouter = express.Router();
@@ -149,4 +147,51 @@ const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-const wss = setupWebSocket(httpService);
+const wss = new WebSocketServer({
+    noServer: true,
+    clientTracking: true,
+    verifyClient: (info, done) => {
+        done(true);
+    }
+});
+
+httpService.on('upgrade', (request, socket, head) => {
+    wss.handleUpgrade(request, socket, head, (ws) => {
+        wss.emit('connection', ws, request);
+    });
+});
+
+wss.on('connection', (ws, request) => {
+    console.log('WebSocket client connected');
+    ws.on('message', (message) => {
+        try {
+            const parsedMessage = JSON.parse(message);
+
+            switch(parsedMessage.type) {
+                case 'likePost':
+                    wss.clients.forEach((client) => {
+                        if (client.readyState === WebSocket.OPEN) {
+                            client.send(JSON.stringify({
+                                type: 'likeUpdate',
+                                postId: parsedMessage.postId,
+                                numLikes: parsedMessage.numLikes
+                            }));
+                        }
+                    });
+                    break;
+            }
+        } catch (error) {
+            console.error('Error parsing WebSocket message:', error);
+        }
+    });
+
+    ws.on('close', () => {
+        console.log('WebSocket client disconnected');
+    });
+
+    ws.on('error', (error) => {
+        console.error('WebSocket error:', error);
+    });
+});
+
+module.exports = {httpService};

@@ -14,43 +14,49 @@ export function ViewPosts() {
             })
             .catch((error) => console.error("Couldn't fetch posts from server.", error));
 
-        let port = window.location.port;
-        const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-        const newSocket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+        const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const host = window.location.host;
+        const socketUrl = `${protocol}://${host}/ws`;
 
-        newSocket.onopen = () => {
-            console.log('WebSocket connection established');
-        };
+        try {
+            const newSocket = new WebSocket(socketUrl);
 
-        newSocket.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
+            newSocket.onopen = () => {
+                console.log('WebSocket connection established to:', socketUrl);
+            };
 
-                if (data.type === 'likeUpdate') {
-                    setPosts(prevPosts =>
-                        prevPosts.map(post =>
-                            post.id === data.postId
-                                ? {...post, numLikes: data.numLikes}
-                                : post
-                        )
-                    );
+            newSocket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.type === 'likeUpdate') {
+                        console.log('Received like update:', data);
+
+                        setPosts(prevPosts =>
+                            prevPosts.map(post =>
+                                post.id === data.postId
+                                    ? {...post, numLikes: data.numLikes}
+                                    : post
+                            )
+                        );
+                    }
+                } catch (error) {
+                    console.error('Error parsing WebSocket message:', error);
                 }
-            } catch (error) {
-                console.error('Error parsing WebSocket message:', error);
-            }
-        };
+            };
 
-        newSocket.onerror = (error) => {
-            console.error('WebSocket error:', error);
-        };
-
-        setSocket(newSocket);
-
-        return () => {
-            if (newSocket) {
+            newSocket.onerror = (error) => {
+                console.error('WebSocket connection error:', error);
+            };
+            newSocket.onclose = (event) => {
+                console.error('WebSocket connection closed:', event);
+            };
+            setSocket(newSocket);
+            return () => {
                 newSocket.close();
-            }
-        };
+            };
+        } catch (error) {
+            console.error('Failed to create WebSocket:', error);
+        }
     }, []);
 
     return (
@@ -76,37 +82,47 @@ export function ViewPosts() {
     );
 }
 
-function PostTemplate({ postID, title, author, content, datePosted, numLikes, socket, liked=false }) {
-    const [likePressed, setLikePressed] = useState(liked);
+function PostTemplate({ postID, title, author, content, datePosted, numLikes, socket }) {
+    const [likePressed, setLikePressed] = useState(false);
     const [localNumLikes, setLocalNumLikes] = useState(numLikes);
 
-    const navigate = useNavigate()
+    useEffect(() => {
+        setLocalNumLikes(numLikes);
+    }, [numLikes]);
 
     const pressLike = async (postID) => {
         const updatedLikes = likePressed ? localNumLikes - 1 : localNumLikes + 1;
-        setLocalNumLikes(updatedLikes);
-        setLikePressed(!likePressed)
-        
-        await fetch('/api/like-post', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                postID: postID,
-                numLikes: updatedLikes,
-            }),
-        })
-            .then(() => {
-                console.log("Likes updated successfully to ", updatedLikes);
+        try {
+            const response = await fetch('/api/like-post', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    postID: postID,
+                    numLikes: updatedLikes,
+                }),
+            });
+
+            if (response.ok) {
+                setLocalNumLikes(updatedLikes);
+                setLikePressed(!likePressed);
 
                 if (socket && socket.readyState === WebSocket.OPEN) {
+                    console.log('Sending WebSocket like update', {
+                        type: 'likePost',
+                        postId: postID,
+                        numLikes: updatedLikes
+                    });
+
                     socket.send(JSON.stringify({
                         type: 'likePost',
                         postId: postID,
                         numLikes: updatedLikes
                     }));
                 }
-            })
-            .catch(() => console.log("Uh oh. Likes not updated successfully for ", postID));
+            }
+        } catch (error) {
+            console.error("Failed to update likes", error);
+        }
     }
 
     return (
