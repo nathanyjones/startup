@@ -103,3 +103,15 @@ For this deliverable, I integrated mongoDB to store user information, posts, mes
 - [x] **Existing user** - Stores posts, messages, sent messages, etc. under the same user if the user already exists. Allows a preexisting user to login with a password, and stores data for that user in the database.
 - [x] **Use MongoDB to store and retrieve credentials** - Stores user and their associated posts, messages etc., which is retrieved from the database in other parts of the application.
 - [x] **Restricts functionality** - Both the backend and frontend restrict functionality if the user is not authenticated. A user cannot view posts, make posts, view messages, or send messages until logged in.
+
+## WebSocket Deliverable
+
+For this deliverable I attempted to use webSocket to update the votes on the frontend in realtime.
+
+- [x] **Backend listens for WebSocket connection** - Done - My websocket integrates with the service to start a websocket connection.
+- [x] **Frontend makes WebSocket connection** - Partially Done - The connection between the frontend and backend is successfully being made, I just haven't figured out how to update the number of likes via this connection.
+- [ ] **Data sent over WebSocket connection** - Not done. Actually unsure if this is working. I think it's almost completed, but I didn't have time to finish debugging before the deadline.
+- [ ] **WebSocket data displayed** - Not done. Again, couldn't get this working in time :(
+- [x] **All Visible Elements Working** - Everything works as I intended for my IdeaShare application. Although the likes do not update in real time, that was never an intended feature for the application. Likes still update in the database, users can post, send messages, reply to messages, etc.
+
+None of my React, Service, DB/Login, or WebSocket have been graded yet, but I already pushed all of them to my production environment before I saw Dr. Clement's message in Canvas, sorry.

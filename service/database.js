@@ -10,7 +10,6 @@ const userCollection = db.collection('user');
 const postCollection = db.collection('post');
 const messageCollection = db.collection('message');
 
-// This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
     await client.connect();
     await db.command({ ping: 1 });
