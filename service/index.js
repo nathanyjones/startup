@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const DB = require('./database.js');
 const uuid = require('uuid');
-const { likeDisplay } = require('./likeDisplay.js');
+const { setupWebSocket } = require('./websocket.js');
 
 const authCookieName = 'token';
 
@@ -149,4 +149,4 @@ const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-likeDisplay(httpService);
+const wss = setupWebSocket(httpService);
