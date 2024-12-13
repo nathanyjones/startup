@@ -13,16 +13,14 @@ export function ViewPosts() {
                 setPosts(posts);
             })
             .catch((error) => console.error("Couldn't fetch posts from server.", error));
-
-        const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-        const host = window.location.host;
-        const socketUrl = `${protocol}://${host}/ws`;
-
+        
         try {
-            const newSocket = new WebSocket(socketUrl);
+            const protocol = window.location.protocol === 'https:' ? 'ws' : 'wss';
+            let port = window.location.port;
+            const newSocket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
 
             newSocket.onopen = () => {
-                console.log('WebSocket connection established to:', socketUrl);
+                console.log('WebSocket connection established.');
             };
 
             newSocket.onmessage = (event) => {
@@ -30,12 +28,9 @@ export function ViewPosts() {
                     const data = JSON.parse(event.data);
                     if (data.type === 'likeUpdate') {
                         console.log('Received like update:', data);
-
                         setPosts(prevPosts =>
                             prevPosts.map(post =>
-                                post.id === data.postId
-                                    ? {...post, numLikes: data.numLikes}
-                                    : post
+                                post.id === data.postId ? {...post, numLikes: data.numLikes} : post
                             )
                         );
                     }
@@ -112,7 +107,6 @@ function PostTemplate({ postID, title, author, content, datePosted, numLikes, so
                         postId: postID,
                         numLikes: updatedLikes
                     });
-
                     socket.send(JSON.stringify({
                         type: 'likePost',
                         postId: postID,
