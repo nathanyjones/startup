@@ -15,7 +15,7 @@ export function ViewPosts() {
             .catch((error) => console.error("Couldn't fetch posts from server.", error));
         
         try {
-            const protocol = window.location.protocol === 'https:' ? 'ws' : 'wss';
+            const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
             let port = window.location.port;
             const newSocket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
 
@@ -38,7 +38,6 @@ export function ViewPosts() {
                     console.error('Error parsing WebSocket message:', error);
                 }
             };
-
             newSocket.onerror = (error) => {
                 console.error('WebSocket connection error:', error);
             };

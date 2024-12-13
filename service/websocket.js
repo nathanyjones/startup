@@ -18,12 +18,14 @@ function setupWebSocket(httpServer) {
         console.log('WebSocket client connected');
 
         ws.on('message', (message) => {
+            console.log("received message of type: ", typeof message)
             try {
                 const data = JSON.parse(message);
                 if (data.type === 'likePost') {
+                    console.log("Sending new numLikes to websocket connections", connections);
                     connections.forEach((c) => {
                         // Intentionally sending message back to self for testing
-                        c.ws.send(message)
+                        c.ws.send(JSON.stringify(data))
                         // if (c.id !== connection.id) {
                         //     c.ws.send(message);
                         // }
