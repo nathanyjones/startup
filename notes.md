@@ -58,7 +58,7 @@ website. Will probably need more.
   * First Level Heading: \<h1>
   * Second Level Heading: \<h2>
   * Third Level Heading: \<h3>
-* To declare a document as an HTML document: <i> \<!DOCTYPE html> <\i>
+* To declare a document as an HTML document: <i> \<!DOCTYPE html> </i>
 * Use the \<script> tag to include JavaScript in the HTML file.
 
 ### Useful CSS Information
@@ -94,8 +94,22 @@ using JavaScript, and functions like insertChild, deleteElement, etc.
 * useNavigate / navigate() React hook can be used to navigate between pages easily, for instance when a button is clicked.
 * useLocation React hook is a useful way to transfer data between pages for usage.
 
-### Useful Terminal Commands
-* ssh - Used to create a remote shell session.
+### Useful HTTP Service Information
+* Express router allows you to route between pages/service endpoints.
+* Get method: app.get('path', (req, res) => {});
+   * Allows you to get information from a server.
+* Post method: app.post('path', (req, res) => {});
+   * Allows you to send information to a server.
+
+### Useful Login / Authentification Information
+* When a user is logged in, a unique token is sent to the user and written to local storage, which is used for authentication.
+* Can use a 'secure' router to check if a user is logged in, and restrict access via backend if the user is not authenticated.
+
+### Useful Websocket Information
+* Allows users to sort of 'connect' to other users in real time.
+* Useful for live messaging, etc.
+* Users' computers 'ping' each other, and await a 'pong' response, to determine connectivity.
+* Messages are 'sent' from the users to the websocket, and can be handled by sending messages to all active connections.
 
 ### Miscellaneous Info
 * Ex. banana.fruit.bozo.click Breakdown:
