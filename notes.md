@@ -71,7 +71,7 @@ website. Will probably need more.
 * CSS Box Model from inside out: Content -> Padding -> Border -> Margin 
 
 ### Useful JavaScript Information
-* Arrow functions syntax: <i>const FunctionName = (parameter(s)) => {function_body return result;}<\i>
+* Arrow functions syntax: <i>const FunctionName = (parameter(s)) => {function_body return result;}</i>
 * The DOM is an object representation of the HTML elements that the browser uses to render the display. We can modify the DOM
 using JavaScript, and functions like insertChild, deleteElement, etc.
 * Default value of display property for span elements is 'inline'.
