@@ -95,15 +95,23 @@ using JavaScript, and functions like insertChild, deleteElement, etc.
 * useLocation React hook is a useful way to transfer data between pages for usage.
 
 ### Useful HTTP Service Information
-* Express router allows you to route between pages/service endpoints.
+* A web server is a computing device that is hosting a web service that knows how to accept incoming internet connections and speak the HTTP application protocol.
+* The backend of your application can use 'fetch' to make calls to service endpoints.
+* Express.js: Simplifies routing, middleware, and HTTP handling in Node.js.
+* Middleware: Adds functionality like logging, static files, and error handling.
 * Get method: app.get('path', (req, res) => {});
    * Allows you to get information from a server.
 * Post method: app.post('path', (req, res) => {});
    * Allows you to send information to a server.
+* Same-Origin Policy: Prevents JavaScript from making requests to a different domain than the one currently being viewed.  
+* CORS: Allows servers to specify which origins can access their resources.  
+* Browser Enforcement: Browsers block responses from unauthorized origins, protecting users from malicious cross-origin requests.
 
-### Useful Login / Authentification Information
+### Useful Login / Authentification Information / Storage
 * When a user is logged in, a unique token is sent to the user and written to local storage, which is used for authentication.
 * Can use a 'secure' router to check if a user is logged in, and restrict access via backend if the user is not authenticated.
+* Can use MongoDB or other databases to store user data, application data, etc.
+* Must allow users of any IP address to access the database for data that's to be accessible to users.
 
 ### Useful Websocket Information
 * Allows users to sort of 'connect' to other users in real time.
